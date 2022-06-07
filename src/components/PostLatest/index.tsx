@@ -10,9 +10,9 @@ const LatestPost = (props: Props) => {
       <SectionTitle>Latest Posts</SectionTitle>
 
       <div className="flex flex-col md:flex-row gap-4 ">
-        <PostItem titleSmaller />
-        <PostItem titleSmaller />
-        <PostItem titleSmaller />
+        <PostItem titleSmaller imageHeight={300}/>
+        <PostItem titleSmaller imageHeight={300}/>
+        <PostItem titleSmaller imageHeight={300}/>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">

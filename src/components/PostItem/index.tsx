@@ -11,6 +11,9 @@ type Props = {
   smallImage?: boolean;
   noAuthor?: boolean;
   lineClamp?: number;
+  height?:number,
+  titlePostSize?: number,
+  imageHeight?:number
 };
 
 const PostItem = ({
@@ -20,6 +23,8 @@ const PostItem = ({
   smallImage = false,
   noAuthor = false,
   lineClamp = 2,
+  titlePostSize = 1,
+  imageHeight = 0
 }: Props) => {
   return (
     <div
@@ -30,14 +35,14 @@ const PostItem = ({
       `}
     >
       <div className={`${normalView && "w-1/3"} w-full`}>
-        <PostItemImg normalView={normalView} smallImage={smallImage} />
+        <PostItemImg imageHeight={imageHeight}/>
       </div>
       <div
-        className={`text-left w-full flex flex-col justify-center  ${
+        className={`text-left w-full flex flex-col justify-center py-2 ${
           normalView ? "w-2/3" : "absolute bottom-2 left-2"
         }`}
       >
-        <PostItemTitle normalView={normalView} titleSmaller={titleSmaller} />
+        <PostItemTitle normalView={normalView} titleSmaller={titleSmaller} titlePostSize={titlePostSize}/>
         {showDetail && <PostItemDetail lineClamp={lineClamp} />}
         <PostItemAuthorAndTime noAuthor={noAuthor} normalView={normalView} />
       </div>

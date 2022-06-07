@@ -12,10 +12,10 @@ const UserPosts = (props: Props) => {
       <div className="flex flex-col gap-4">
         <div className="w-full flex gap-4 h-[280px]">
           <div className="w-1/2">
-            <PostItem />
+            <PostItem titleSmaller/>
           </div>
           <div className="w-1/2">
-            <PostItem />
+            <PostItem titleSmaller/>
           </div>
         </div>
 

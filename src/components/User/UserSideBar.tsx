@@ -1,6 +1,6 @@
 import React from "react";
 import SectionTitle from "../common/SectionTitle";
-import FastPost from "../FastPost";
+import FastPost from "../PostFast";
 import PostItem from "../PostItem";
 
 type Props = {};

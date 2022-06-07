@@ -14,7 +14,7 @@ function Login({}: Props) {
           className="w-full h-full object-cover brightness-75"
         />
       </div>
-      <div className="lg:w-1/3 flex flex-col items-center justify-center w-full px-5">
+      <div className="lg:w-1/3 flex flex-col items-center justify-center w-full px-2">
         <LoginText />
         <Form />
       </div>

@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import SectionTitle from "../common/SectionTitle";
 import PostItem from "../PostItem";
 import PostItemAuthorAndTime from "../PostItem/PostItemAuthorAndTime";
 import CommentAvatar from "./CommentAvatar";
@@ -11,7 +12,7 @@ type Props = {};
 
 const PostDetail = (props: Props) => {
   return (
-    <div className="flex px-2 lg:px-0 gap-5">
+    <div className="flex px-2 lg:px-0 gap-10">
       <div className="w-2/3 h-full">
         {/* Hero image - title, author, like, comment */}
         <div className="relative w-full h-full">
@@ -74,8 +75,26 @@ const PostDetail = (props: Props) => {
         <CommentItem commentParent={true} />
       </div>
 
-      <div className="w-1/3 bg-black">
+      <div className="flex flex-col gap-10 w-1/3">
         {/* related post */}
+
+        <div>
+          <SectionTitle top={3} >Category</SectionTitle>
+          <div className="flex flex-col gap-4">
+            
+          </div>
+        </div>
+        <div>
+          <SectionTitle top={5}>Related Posts</SectionTitle>
+          <div className="flex flex-col gap-4">
+            <PostItem titleSmaller />
+            <PostItem titleSmaller/>
+            <PostItem titleSmaller/>
+            <PostItem titleSmaller/>
+            <PostItem titleSmaller/>  
+          </div>
+        </div>
+
         {/* Category */}
       </div>
     </div>

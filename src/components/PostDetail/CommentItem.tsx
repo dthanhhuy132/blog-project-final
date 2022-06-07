@@ -9,8 +9,8 @@ type Props = {
 
 const CommentItem = ({ commentParent = false, thirdCmt = false }: Props) => {
   return (
-    <div className={`mt-4 flex gap-2`}>
-      <CommentAvatar />
+    <div className={`relative mt-4 flex gap-2 ${commentParent && "after:content-[''] after:absolute after:top-[30px] after:left-[15px] md:after:top-[50px] after:bottom-0 md:after:left-[25px] after:w-[2px] after:bg-gray-400 "} `}>
+      <CommentAvatar commentParent={commentParent}/>
       <div>
         <div className="bg-slate-200 w-full rounded-md border-[1px] border-gray-300 text-left pl-2">
           <div className="flex items-center border-b-[1px] border-gray-400 mr-2 pb-1 mt-1">
@@ -54,6 +54,7 @@ const CommentItem = ({ commentParent = false, thirdCmt = false }: Props) => {
           </div>
         </div>
 
+        {commentParent && <CommentItem />}
         {commentParent && <CommentItem />}
       </div>
     </div>

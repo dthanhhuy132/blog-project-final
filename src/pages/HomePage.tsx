@@ -1,7 +1,7 @@
 import React from "react";
-import FastPost from "../components/FastPost";
-import LatestPost from "../components/PopularPost";
-import PopularPost from "../components/LatestPost";
+import FastPost from "../components/PostFast";
+import LatestPost from "../components/PostPopular";
+import PopularPost from "../components/PostLatest";
 
 type Props = {};
 

@@ -1,0 +1,61 @@
+.sun-editor {
+  font-family: "Poppins", sans-serif;
+  border-radius: 10px;
+  overflow: hidden;
+  padding-bottom: 80px;
+}
+
+/* format button format */
+
+.sun-editor .se-menu-list,
+.sun-editor .se-menu-list {
+  display: flex;
+  gap: 5px;
+  border: none;
+}
+
+.sun-editor .se-btn-select.se-btn-tool-font,
+.sun-editor .se-btn-select.se-btn-tool-size,
+.sun-editor .se-btn-select.se-btn-tool-format {
+  box-shadow: 0px 0px 1px #666;
+  margin: 2px;
+}
+
+/* form input files */
+.sun-editor .se-dialog .se-dialog-inner .se-dialog-form .se-dialog-form-files > input {
+  line-height: 26px;
+  padding-left: 0px;
+}
+
+/* title form */
+.sun-editor .se-dialog .se-dialog-inner .se-dialog-content label {
+  font-weight: 500;
+}
+
+.sun-editor .se-dialog .se-dialog-inner .se-link-preview {
+  display: none;
+}
+
+/* image URL */
+.se-dialog-form-footer {
+  display: none;
+}
+
+/* footer information tag */
+.se-resizing-bar.sun-editor-common.se-resizing-none {
+  display: none;
+}
+
+/* input field */
+.sun-editor .se-wrapper .se-wrapper-inner {
+  min-height: 300px;
+}
+
+/* format fomr */
+.sun-editor .se-list-layer.se-list-font-family,
+.sun-editor .se-list-layer.se-list-font-size,
+.sun-editor .se-list-layer.se-list-format {
+  top: 42px !important;
+  overflow-y: scroll !important;
+  height: 270px !important;
+}
