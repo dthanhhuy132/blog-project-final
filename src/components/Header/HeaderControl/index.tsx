@@ -6,9 +6,9 @@ type Props = {};
 
 const HeaderControl: React.FC = (props: Props) => {
   return (
-    <div className="flex justify-end items-center gap-4">
+    <div className="flex justify-end items-center gap-4 ">
       <HeaderControlThemeMode />
-      <div className="flex items-center">
+      <div className="flex items-center  ">
         {/* <div className="flex gap-2 ml-3 text-[1.1rem] text-gray-600 rounded-lg bg-gray-300 px-3 py-2 cursor-pointer hover:text-gray-900">
           <i className="fa-solid fa-user"></i>
           <i className="fa-solid fa-bars"></i>

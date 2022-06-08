@@ -7,7 +7,7 @@ type Props = {};
 
 const HomePage = (props: Props) => {
   return (
-    <div className="px-2 md:px-1">
+    <div className="px-2 md:px-1 mt-7">
       <FastPost />
       <LatestPost />
       <PopularPost />

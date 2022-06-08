@@ -14,7 +14,7 @@ const PostItemAuthorAndTime = ({
     <div
       className={`flex items-center w-full ${
         normalView ? "text-black text-[0.8rem]" : "text-white text-[0.8rem]"
-      }`}
+      } dark:text-gray-300`}
     >
       {!noAuthor && (
         <img

@@ -5,6 +5,7 @@ import InputFiled from "./InputFiled";
 import UploadImage from "./UploadImage";
 import { useEffect, useState } from "react";
 import PostEdittor from "./PostEditor";
+import TitleField from "./TitleField";
 
 type Props = {};
 
@@ -26,6 +27,7 @@ const CreatePost = (props: Props) => {
   const [validSummary, setValidSummary] = useState("");
   const [validContent, setValidContent] = useState("");
   const [validImg, setValidImg] = useState("");
+
   const [imageHeroBase64, setImageHeroBase64] = useState("");
 
   // console.log("layBase64", layBase64);
@@ -35,7 +37,9 @@ const CreatePost = (props: Props) => {
   function validdatePost() {
     if (post.title === "") setValidTitle("Please enter your post title");
     if (post.summary === "") setValidSummary("Please enter your post summary");
-    if (post.content === "") setValidContent("Please enter your post content");
+    if (post.content === "" || post.content.length === 11)
+      setValidContent("Please enter your post content");
+
     if (post.imageHeroBase64 === "" && post.imageHeroLink === "")
       setValidImg("Please choose your image");
   }
@@ -54,23 +58,24 @@ const CreatePost = (props: Props) => {
 
   return (
     <div className="text-left mt-5 mb-12 px-2 lg:px-0">
-      <p className="font-bold mb-5 text-[1.5rem]"> Let's share your moment </p>
+      <p className="font-bold mb-5 text-[1.5rem] dark:text-gray-300">
+        {" "}
+        Let's share your moment{" "}
+      </p>
 
       <UploadImage
-        getImageHeroLink={(link: string) =>
+        getImageLink={(link: string) =>
           setPost({ ...post, imageHeroLink: link })
         }
-        getImageHeroBase64={(base64: any) => {}}
-        setImageHeroBase64={setImageHeroBase64}
+        getImageBase64={(base64: any) => {}}
+        setImageBase64={setImageHeroBase64}
         post={post}
         validate={validImg}
         clearValidate={() => setValidImg("")}
       />
 
       <div className="flex flex-col mb-5">
-        <label htmlFor="" className="font-bold">
-          Post title
-        </label>
+        <TitleField>Post title</TitleField>
         <InputFiled
           inputChange={(e: any) => setPost({ ...post, title: e.target.value })}
           validate={validTitle}
@@ -79,9 +84,7 @@ const CreatePost = (props: Props) => {
       </div>
 
       <div className="flex flex-col mb-5">
-        <label htmlFor="" className="font-bold">
-          Post summary
-        </label>
+        <TitleField>Post summary</TitleField>
         <InputFiled
           row={4}
           placeholder="Write your post summary..."
@@ -98,6 +101,9 @@ const CreatePost = (props: Props) => {
         getContent={(inputContent: any) =>
           setPost({ ...post, content: inputContent })
         }
+        validate={validContent}
+        clearValidate={() => setValidContent("")}
+        setValidate={(string: string) => setValidContent(string)}
       />
 
       <button

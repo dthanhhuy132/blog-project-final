@@ -2,7 +2,7 @@
   font-family: "Poppins", sans-serif;
   border-radius: 10px;
   overflow: hidden;
-  padding-bottom: 80px;
+  border: none;
 }
 
 /* format button format */
@@ -48,7 +48,7 @@
 
 /* input field */
 .sun-editor .se-wrapper .se-wrapper-inner {
-  min-height: 300px;
+  min-height: 400px;
 }
 
 /* format fomr */
@@ -58,4 +58,9 @@
   top: 42px !important;
   overflow-y: scroll !important;
   height: 270px !important;
+}
+
+.darkmode {
+  background-color: #18191a;
+  color: #f2f2f2;
 }

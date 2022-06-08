@@ -1,14 +1,28 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Switch from "react-switch";
 
 type Props = {};
 
 const HeaderControlThemeMode = (props: Props) => {
-  const [checked, setChecked] = useState(false);
+  const [checked, setChecked] = useState(
+    localStorage.getItem("theme") === "dark"
+  );
+
+  const htmlEl = document.querySelector("html");
 
   function handleChange() {
     setChecked(!checked);
   }
+
+  useEffect(() => {
+    if (checked) {
+      htmlEl?.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+    } else {
+      htmlEl?.classList.remove("dark");
+      localStorage.removeItem("theme");
+    }
+  }, [checked]);
 
   return (
     <div className="hidden md:flex items-center">

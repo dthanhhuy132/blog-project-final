@@ -24,7 +24,7 @@ const PostDetail = (props: Props) => {
 
           <PostDetailCommonInfo />
         </div>
-        <p className="text-center md:text-justify mt-5 font-semibold text-[0.9rem] italic">
+        <p className="text-center md:text-justify mt-5 font-semibold text-[0.9rem] italic dark:text-gray-400">
           <q>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni quo
             voluptas, iure veritatis architecto illo quam dignissimos! Itaque
@@ -39,12 +39,12 @@ const PostDetail = (props: Props) => {
         <div className="flex flex-col gap-2 items-center md:flex-row md:gap-10 py-2 mt-5 border-t-[1px]  border-b-[1px] border-gray-300">
           <div className="flex gap-5 items-center">
             <p>
-              <span className="font-bold mr-1">14</span>
+              <span className="font-bold mr-1 dark:text-gray-300">14</span>
               <i className="fa-solid fa-heart mr-1 text-red-500" />
             </p>
-            <p className="w-[7px] h-[7px] rounded-full bg-violet-900"></p>
+            <p className="w-[7px] h-[7px] rounded-full bg-violet-900 dark:bg-green-500"></p>
             <p>
-              <span className="font-bold mr-1">10</span>
+              <span className="font-bold mr-1 dark:text-gray-300">10</span>
               <i className="fa-solid fa-message mr-1 text-blue-600" />
             </p>
           </div>
@@ -79,19 +79,17 @@ const PostDetail = (props: Props) => {
         {/* related post */}
 
         <div>
-          <SectionTitle top={3} >Category</SectionTitle>
-          <div className="flex flex-col gap-4">
-            
-          </div>
+          <SectionTitle top={3}>Category</SectionTitle>
+          <div className="flex flex-col gap-4"></div>
         </div>
         <div>
           <SectionTitle top={5}>Related Posts</SectionTitle>
           <div className="flex flex-col gap-4">
             <PostItem titleSmaller />
-            <PostItem titleSmaller/>
-            <PostItem titleSmaller/>
-            <PostItem titleSmaller/>
-            <PostItem titleSmaller/>  
+            <PostItem titleSmaller />
+            <PostItem titleSmaller />
+            <PostItem titleSmaller />
+            <PostItem titleSmaller />
           </div>
         </div>
 

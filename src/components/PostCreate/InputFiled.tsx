@@ -30,8 +30,8 @@ const InputFiled = ({
         onInput={(e) => handleInputCmt(e)}
         onChange={(e) => inputChange(e)}
         placeholder={placeholder}
-        className={`w-full focus:outline-none p-2 text-[0.9rem] resize-none overflow-y-hidden bg-transparent border-[1px] rounded-lg ${
-          validate && "border-red-500"
+        className={`w-full focus:outline-none p-2 text-[0.9rem] resize-none overflow-y-hidden bg-transparent border-[1px] rounded-lg dark:border-gray-600 dark:text-gray-300 ${
+          validate && "!border-red-500 "
         }`}
       ></textarea>
 

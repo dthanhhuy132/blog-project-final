@@ -4,7 +4,7 @@ import React from "react";
 type Props = {
   normalView?: boolean;
   titleSmaller?: boolean;
-  titlePostSize?:number
+  titlePostSize?: number;
 };
 
 const PostItemTitle = ({ normalView = false, titleSmaller = false }: Props) => {
@@ -14,7 +14,7 @@ const PostItemTitle = ({ normalView = false, titleSmaller = false }: Props) => {
     "text-white text-[1rem] md:text-[1.4rem] font-semibold": titleSmaller,
   });
 
-  return <h6 className={`${classes} `}>Tiêu đề bài viết</h6>;
+  return <h6 className={`${classes} dark:text-gray-300 `}>Tiêu đề bài viết</h6>;
 };
 
 export default PostItemTitle;

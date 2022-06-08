@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import CarouselDemo from "./components/CarouselDemo";
 import Header from "./components/Header";
+import CreateFastPostPage from "./pages/CreateFastPostPage";
 import CreatePostPage from "./pages/CreatePostPage";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
@@ -11,10 +12,10 @@ import UserPage from "./pages/UserPage";
 
 function App() {
   return (
-    <div className="App mb-5">
+    <div className="App pb-5 dark:bg-[#18191a]">
       <Header />
       {/* <CarouselDemo /> */}
-      <div className="lg:px-5 sm:w-full lg:w-[968px] mx-auto">
+      <div className="lg:px-5 sm:w-full lg:w-[968px] mx-auto ">
         <Routes>
           <Route path="/" element={<HomePage />}></Route>
           <Route path="/post" element={<UserPage />}></Route>
@@ -22,6 +23,10 @@ function App() {
           <Route path="/:userPage" element={<UserPage />}></Route>
           <Route path="/login" element={<LoginPage />}></Route>
           <Route path="/create-post" element={<CreatePostPage />}></Route>
+          <Route
+            path="/create-fast-post"
+            element={<CreateFastPostPage />}
+          ></Route>
           <Route path="/register" element={<LoginPage />}></Route>
         </Routes>
       </div>
