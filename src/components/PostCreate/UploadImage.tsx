@@ -26,7 +26,9 @@ const UploadImage = ({
   setImageBase64,
 }: Props) => {
   const [imgCoverBase64, setImgCoverBase64] = useState(post.imageHeroBase64);
-  const [imgLink, setImgLink] = useState(post.imageHeroLink || post.imageLink);
+  const [imgLink, setImgLink] = useState(
+    post.imageHeroLink || post.imageLink || ""
+  );
   const [validateImg, setValidateImg] = useState(validate);
 
   const inputFileRef = useRef<HTMLInputElement>(null);
@@ -85,7 +87,6 @@ const UploadImage = ({
   }
 
   useEffect(() => {
-    // console.log("chay vao imgCoverBase64", imgCoverBase64);getImageBase64
     getImageLink("");
   }, [imgCoverBase64]);
 
@@ -121,7 +122,7 @@ const UploadImage = ({
         <div className="flex gap-3">
           <input
             type="text"
-            className="border-[1px] w-2/3 focus:outline-none p-2 rounded-lg font-thin dark:bg-gray-500 dark:border-gray-400 dark:text-gray-300"
+            className="border-[1px] w-2/3 focus:outline-none p-2 rounded-lg font-thin dark:bg-gray-500 dark:border-gray-400 dark:text-gray-200 dark:placeholder-gray-300"
             placeholder="Url link"
             value={imgLink}
             onChange={(e) => {

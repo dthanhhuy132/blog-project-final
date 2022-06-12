@@ -30,12 +30,12 @@ const CommentItem = ({ commentParent = false, thirdCmt = false }: Props) => {
               <span className="ml-3 text-[0.8rem]">10 minutes ago</span>
             </div>
 
-            <div className="flex items-center ml-auto gap-3 text-[0.8rem]">
-              <span className="cursor-pointer">
-                <i className="fa-solid fa-reply " /> Reply
+            <div className="flex items-center ml-auto gap-3 text-[0.8rem] ">
+              <span className="cursor-pointer hover:text-blue-500">
+                <i className="fa-solid fa-reply" /> Reply
               </span>
 
-              <span className="cursor-pointer">
+              <span className="cursor-pointer hover:text-blue-500">
                 <i className="fa-solid fa-flag"></i> Report
               </span>
             </div>

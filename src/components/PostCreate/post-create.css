@@ -3,6 +3,8 @@
   border-radius: 10px;
   overflow: hidden;
   border: none;
+  padding-bottom: 80px;
+  /* background-color: #18191a; */
 }
 
 /* format button format */
@@ -60,7 +62,27 @@
   height: 270px !important;
 }
 
-.darkmode {
+/* resizing */
+
+.sun-editor .se-controller .se-arrow.se-arrow-up {
+  display: none;
+}
+
+.sun-editor .se-dialog .se-dialog-inner .se-dialog-content {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.dark-mode {
   background-color: #18191a;
   color: #f2f2f2;
+}
+
+.dark-mode-modal {
+  background-color: #808487 !important;
+  color: #f9f9f9 !important;
+}
+
+.dark-mode-label {
+  color: azure;
 }

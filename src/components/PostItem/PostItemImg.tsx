@@ -1,18 +1,30 @@
 import React from "react";
 
+import noImg from "../../assets/img/NoImage.jpg";
+
 type Props = {
-  
-  imageHeight?:number
+  imageHeight?: number;
+  imgSource?: string;
+  normalView?: boolean;
 };
 
-const PostItemImg = ({imageHeight=0 }: Props) => {
+const PostItemImg = ({ imageHeight = 0, imgSource, normalView }: Props) => {
   return (
-    <img
-      src="https://cdn.tgdd.vn/Files/2019/12/22/1227964/tu-van-chon-mua-ong-kinh-lens-may-anh-de-chup-anh-phong-canh-dep-nhat-1.jpg"
-      alt="PostImg-Heor"
-      className={`rounded-lg object-cover brightness-75 'w-full`}
-      style={{height: `${imageHeight ? imageHeight+'px' : '100%'}`}}
-    />
+    <div className="w-full h-full relative rounded-lg overflow-hidden">
+      <img
+        src={imgSource || noImg}
+        alt="PostImg-Hero"
+        className={`object-cover w-full ${
+          normalView && "brightness-[85%] dark:brightness-75"
+        }`}
+        style={{
+          height: `${imageHeight ? imageHeight + "px" : "100%"}`,
+        }}
+      />
+      {!normalView && (
+        <div className="absolute w-full h-full top-0 left-0 bg-gradient-to-t from-[#000000e0] to-[#0000] z-1"></div>
+      )}
+    </div>
   );
 };
 

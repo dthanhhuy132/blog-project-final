@@ -2,16 +2,15 @@ import React from "react";
 
 type Props = {
   lineClamp: number;
+  summary: string | undefined;
 };
 
-const PostItemDetail = ({ lineClamp = 2 }: Props) => {
+const PostItemDetail = ({ lineClamp = 2, summary }: Props) => {
   return (
     <div
       className={`text-[0.8rem] w-full mb-1 text-gray-400 line-clamp-${lineClamp} pr-2`}
     >
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio dolorem
-      pariatur nemo velit? Quibusdam, magnam! Odio rerum, dicta cupiditate amet
-      voluptas ex alias expedita quis ducimus? Ratione saepe ea dolorum!
+      {summary}
     </div>
   );
 };

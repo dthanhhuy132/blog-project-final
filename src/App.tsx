@@ -1,7 +1,10 @@
-import React from "react";
-import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import CarouselDemo from "./components/CarouselDemo";
+import "react-loading-skeleton/dist/skeleton.css";
+
+import React, { useEffect } from "react";
+import { Route, Routes } from "react-router-dom";
+import { useDispatch } from "react-redux";
+
 import Header from "./components/Header";
 import CreateFastPostPage from "./pages/CreateFastPostPage";
 import CreatePostPage from "./pages/CreatePostPage";
@@ -10,7 +13,23 @@ import LoginPage from "./pages/LoginPage";
 import PostDetailPage from "./pages/PostDetailPage";
 import UserPage from "./pages/UserPage";
 
+import {
+  getFastPosts,
+  getLastestPosts,
+  getPopularPosts,
+} from "./store/posts/action";
+import { getCategoryList } from "./store/category/action";
+
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getFastPosts());
+    dispatch(getLastestPosts({ _limit: 7 }));
+    dispatch(getPopularPosts({ love_gte: 1 }));
+    dispatch(getCategoryList());
+  }, []);
+
   return (
     <div className="App pb-5 dark:bg-[#18191a]">
       <Header />

@@ -6,6 +6,7 @@ import UploadImage from "./UploadImage";
 import { useEffect, useState } from "react";
 import PostEdittor from "./PostEditor";
 import TitleField from "./TitleField";
+import Category from "./Category";
 
 type Props = {};
 
@@ -21,6 +22,7 @@ const CreatePost = (props: Props) => {
     love: 0,
     isReport: false,
     reportQuantity: 0,
+    category: [],
   });
 
   const [validTitle, setValidTitle] = useState("");
@@ -29,8 +31,6 @@ const CreatePost = (props: Props) => {
   const [validImg, setValidImg] = useState("");
 
   const [imageHeroBase64, setImageHeroBase64] = useState("");
-
-  // console.log("layBase64", layBase64);
 
   // _______________________________________________________________ SUBMIT POST
 
@@ -42,14 +42,31 @@ const CreatePost = (props: Props) => {
 
     if (post.imageHeroBase64 === "" && post.imageHeroLink === "")
       setValidImg("Please choose your image");
+
+    if (
+      post.title === "" &&
+      post.summary === "" &&
+      (post.content === "" || post.content.length === 11) &&
+      post.imageHeroBase64 === "" &&
+      post.imageHeroLink === ""
+    ) {
+      return false;
+    } else if (
+      (post.title.trim() !== "" &&
+        post.summary.trim() !== "" &&
+        post.content.trim() !== "" &&
+        post.content.length !== 11 &&
+        post.imageHeroBase64.trim() !== "") ||
+      post.imageHeroLink.trim() !== ""
+    ) {
+      return true;
+    }
   }
 
   function handleSubmitPost() {
-    validdatePost();
-    let isValidPost =
-      !validTitle && !validSummary && !validContent && !validImg;
+    let isValidPost = validdatePost();
 
-    console.log("nộp thì ra cái gì nè", post);
+    if (isValidPost) console.log("nộp thì ra cái gì nè", post);
   }
 
   useEffect(() => {
@@ -105,6 +122,11 @@ const CreatePost = (props: Props) => {
         clearValidate={() => setValidContent("")}
         setValidate={(string: string) => setValidContent(string)}
       />
+
+      <div className="flex flex-col mb-5">
+        <TitleField>Post Category</TitleField>
+        <Category />
+      </div>
 
       <button
         className="py-3 bg-blue-600 text-white font-bold text-[1.1rem] w-full rounded-md hover:bg-blue-400 hover:text-gray-900"

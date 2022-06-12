@@ -1,4 +1,5 @@
-import React from "react";
+import { useSelector } from "react-redux";
+
 import SectionTitle from "../common/SectionTitle";
 import FastPost from "../PostFast";
 import PostItem from "../PostItem";
@@ -6,9 +7,12 @@ import PostItem from "../PostItem";
 type Props = {};
 
 const UserSideBar = (props: Props) => {
+  const fastPosts = useSelector((state: any) => state.Posts.fastPosts);
+  const { data, pagination } = fastPosts;
+
   return (
     <div className="md:w-2/5">
-      <FastPost smallSize />
+      <FastPost smallSize data={data} />
 
       <div>
         <SectionTitle>Top Yêu thích</SectionTitle>

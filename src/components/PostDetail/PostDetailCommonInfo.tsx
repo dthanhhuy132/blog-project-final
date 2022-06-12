@@ -1,15 +1,15 @@
 import React from "react";
+import { Post } from "../interface";
 
-type Props = {};
+type Props = {
+  post: Post;
+};
 
-const PostDetailCommonInfo = (props: Props) => {
+const PostDetailCommonInfo = ({ post }: Props) => {
   return (
     <div className="absolute bottom-2 left-2 text-white text-left">
-      <p>
-        <span className="text-[2rem] text-gray-400 font-bold inline-block w-[30px] text-center mr-4">
-          #
-        </span>
-        <span className="text-[1.5rem] font-semibold">Post title</span>
+      <p className="mb-3 text-[1.5rem] font-semibold lead-[1] line-clamp-3">
+        {post?.title}
       </p>
 
       <div className="flex items-center gap-4">

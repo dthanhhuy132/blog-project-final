@@ -1,12 +1,18 @@
 import classNames from "classnames";
 import React from "react";
+import { FastPost } from "../interface";
 
 type Props = {
   noPadding?: boolean;
   smallSize?: boolean;
+  fastPost?: FastPost;
 };
 
-const FastPostItem = ({ noPadding = false, smallSize = false }: Props) => {
+const FastPostItem = ({
+  noPadding = false,
+  smallSize = false,
+  fastPost,
+}: Props) => {
   const sizeClass = classNames({
     "md:w-[170px] md:h-[220px] ": !smallSize,
     "md:w-[130px] md:h-[200px] ": smallSize,
@@ -21,7 +27,7 @@ const FastPostItem = ({ noPadding = false, smallSize = false }: Props) => {
     >
       {/* hero image */}
       <img
-        src="https://images.unsplash.com/photo-1561954791-05d64ce8460f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80"
+        src={fastPost?.imageBase64 || fastPost?.imageLink}
         alt="bg"
         className="w-full h-full object-cover brightness-75 hover:scale-110 transition-all duration-300"
       />
@@ -33,10 +39,10 @@ const FastPostItem = ({ noPadding = false, smallSize = false }: Props) => {
           alt=""
           className={`object-cover rounded-full border-[2px] border-violet-500 absolute top-2 left-2 md:top-2 md:left-2
           ${smallSize ? "w-[35px] h-[35px]" : "w-[42px] h-[42px]"}
-           `}
+          `}
         />
         <p
-          className={`text-white ml-2 absolute text-[0.9rem] bottom-2 left-1 ${
+          className={`text-white ml-2 absolute text-[0.9rem] bottom-2 md:bottom-[unset] left-1 ${
             smallSize ? "" : "md:top-5 md:left-12"
           }`}
         >

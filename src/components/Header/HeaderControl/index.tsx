@@ -4,7 +4,7 @@ import HeaderUserLogedin from "./HeaderUserLogedin";
 
 type Props = {};
 
-const HeaderControl: React.FC = (props: Props) => {
+const HeaderControl = (props: Props) => {
   return (
     <div className="flex justify-end items-center gap-4 ">
       <HeaderControlThemeMode />

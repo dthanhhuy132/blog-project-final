@@ -1,12 +1,11 @@
-import React, { SetStateAction, useEffect } from "react";
+import React, { SetStateAction, useContext, useEffect } from "react";
 import { useState } from "react";
-
-import { Post } from "../interface";
 
 import SunEditor from "suneditor-react";
 import WarningText from "./WarningText";
-import styled from "styled-components";
 import TitleField from "./TitleField";
+import { AllContext } from "../Provider";
+import setClassForTextEditor from "./setClassForTextEditor";
 
 type Props = {
   initContent: string;
@@ -23,6 +22,7 @@ const PostEdittor = ({
   clearValidate,
   setValidate,
 }: Props) => {
+  const { themeMode } = useContext(AllContext);
   const [editorContent, setEditorContent] = useState(initContent);
 
   useEffect(() => {
@@ -38,6 +38,10 @@ const PostEdittor = ({
     }
     return true;
   }
+
+  useEffect(() => {
+    setClassForTextEditor(themeMode);
+  });
 
   return (
     <div className="flex flex-col mb-5">
@@ -58,7 +62,7 @@ const PostEdittor = ({
               ["image", "video", "audio", "link"],
               ["codeView"],
             ],
-            className: "darkmode",
+            imageAccept: "jpg, jpeg, png",
           }}
           onImageUploadBefore={(file) => handleImageUploadBefore(file)}
           setContents={editorContent}

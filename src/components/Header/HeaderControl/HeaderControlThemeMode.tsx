@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Switch from "react-switch";
+import { AllContext } from "../../Provider";
 
 type Props = {};
 
 const HeaderControlThemeMode = (props: Props) => {
+  const { setThemeMode } = useContext(AllContext);
+
   const [checked, setChecked] = useState(
     localStorage.getItem("theme") === "dark"
   );
@@ -18,9 +21,11 @@ const HeaderControlThemeMode = (props: Props) => {
     if (checked) {
       htmlEl?.classList.add("dark");
       localStorage.setItem("theme", "dark");
+      setThemeMode("dark");
     } else {
       htmlEl?.classList.remove("dark");
       localStorage.removeItem("theme");
+      setThemeMode("");
     }
   }, [checked]);
 
@@ -32,6 +37,7 @@ const HeaderControlThemeMode = (props: Props) => {
         height={17}
         width={40}
         handleDiameter={27}
+        onColor="#f2da06"
         uncheckedHandleIcon={
           <i className="fa-solid fa-sun absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] "></i>
         }
