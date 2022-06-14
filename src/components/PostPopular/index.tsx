@@ -3,7 +3,7 @@ import SectionTitle from "../common/SectionTitle";
 import PostItem from "../PostItem";
 import Button from "../common/Button";
 import { Pagination, Post } from "../interface";
-import SkelentonPostItem from "../Skeleton/SkelentonPostItem";
+import SkeletonPostItem from "../Skeleton/SkeletonPostItem";
 
 type Props = {
   data: {
@@ -31,11 +31,11 @@ const PopularPost = ({ data, pagination }: Props) => {
       ) : (
         <div className="flex flex-wrap gap-7 w-full md:flex-nowrap items-stretch ">
           <div className="w-full md:w-1/2 ">
-            <SkelentonPostItem />
+            <SkeletonPostItem />
           </div>
           <div className="flex flex-col w-full md:w-1/2 gap-5">
             {Array.from(Array(3)).map((v, i) => (
-              <SkelentonPostItem normalView showDetail key={i} />
+              <SkeletonPostItem normalView showDetail key={i} />
             ))}
           </div>
         </div>

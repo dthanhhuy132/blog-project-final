@@ -28,6 +28,7 @@ const InputForm = ({ title, inputType = "text" }: Props) => {
       </label>
       <div className="relative w-full">
         <input
+          autoComplete="off"
           type={initInputType}
           className="w-full rounded-md px-2 py-2 text-sm"
         />

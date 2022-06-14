@@ -3,7 +3,7 @@ import SectionTitle from "../common/SectionTitle";
 import { Pagination, Post } from "../interface";
 import InfiniteScroll from "react-infinite-scroll-component";
 import PostItem from "../PostItem";
-import SkelentonPostItem from "../Skeleton/SkelentonPostItem";
+import SkeletonPostItem from "../Skeleton/SkeletonPostItem";
 import { useDispatch, useSelector } from "react-redux";
 import { getLastestPosts } from "../../store/posts/action";
 
@@ -46,7 +46,7 @@ const LatestPost = (props: Props) => {
               loader={
                 <div className="absolute top-full left-0 w-full grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
                   {Array.from(Array(7)).map((v, i) => (
-                    <SkelentonPostItem normalView showDetail key={i} />
+                    <SkeletonPostItem normalView showDetail key={i} />
                   ))}
                 </div>
               }
@@ -68,12 +68,12 @@ const LatestPost = (props: Props) => {
         <>
           <div className="flex flex-col md:flex-row gap-6 ">
             {Array.from(Array(3)).map((v, i) => (
-              <SkelentonPostItem imageHeight={300} key={i} />
+              <SkeletonPostItem imageHeight={300} key={i} />
             ))}
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
             {Array.from(Array(4)).map((v, i) => (
-              <SkelentonPostItem normalView showDetail key={i} />
+              <SkeletonPostItem normalView showDetail key={i} />
             ))}
           </div>
         </>

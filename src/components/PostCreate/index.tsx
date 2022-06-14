@@ -16,6 +16,7 @@ const CreatePost = (props: Props) => {
     imageHeroBase64: "",
     imageHeroLink: "",
     title: "",
+    slug: "",
     summary: "",
     content: "",
     comment: 0,
@@ -28,6 +29,7 @@ const CreatePost = (props: Props) => {
   const [validTitle, setValidTitle] = useState("");
   const [validSummary, setValidSummary] = useState("");
   const [validContent, setValidContent] = useState("");
+  const [validCategory, setValidCategory] = useState("");
   const [validImg, setValidImg] = useState("");
 
   const [imageHeroBase64, setImageHeroBase64] = useState("");
@@ -42,6 +44,10 @@ const CreatePost = (props: Props) => {
 
     if (post.imageHeroBase64 === "" && post.imageHeroLink === "")
       setValidImg("Please choose your image");
+
+    if (post.category.length === 0) {
+      setValidCategory("Please choose post category");
+    }
 
     if (
       post.title === "" &&
@@ -65,7 +71,6 @@ const CreatePost = (props: Props) => {
 
   function handleSubmitPost() {
     let isValidPost = validdatePost();
-
     if (isValidPost) console.log("nộp thì ra cái gì nè", post);
   }
 
@@ -125,7 +130,13 @@ const CreatePost = (props: Props) => {
 
       <div className="flex flex-col mb-5">
         <TitleField>Post Category</TitleField>
-        <Category />
+        <Category
+          validate={validCategory}
+          clearValidate={() => setValidCategory("")}
+          setPostCategory={(categoryList: any) =>
+            setPost({ ...post, category: categoryList })
+          }
+        />
       </div>
 
       <button

@@ -1,10 +1,14 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 import Form from "./Form";
 import LoginText from "./LoginText";
 
 type Props = {};
 
 function Login({}: Props) {
+  const location = useLocation();
+  const isLoginPage = location.pathname.indexOf("login") >= 0;
+
   return (
     <div className="flex justify-center md:items-center h-full w-full">
       <div className="hidden lg:block lg:w-2/3">
@@ -15,7 +19,7 @@ function Login({}: Props) {
         />
       </div>
       <div className="lg:w-1/3 flex flex-col items-center justify-center w-full px-2">
-        <LoginText />
+        <LoginText describe={isLoginPage ? "Welcome back" : "Welcome!!!"} />
         <Form />
       </div>
     </div>

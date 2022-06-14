@@ -1,10 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { iCategory } from "../interface";
+import WarningText from "./WarningText";
 
-type Props = {};
+type Props = {
+  validate: string;
+  clearValidate: () => void;
+  setPostCategory: (categoryList: any) => void;
+};
 
-const Category = (props: Props) => {
+const Category = ({ validate, clearValidate, setPostCategory }: Props) => {
   const [categoryArr, setCategoryArr] = useState<string[]>([]);
   const category: iCategory[] = useSelector((state: any) => state.Category);
 
@@ -16,7 +21,12 @@ const Category = (props: Props) => {
     }
   }
 
-  console.log("categoryArr", categoryArr);
+  useEffect(() => {
+    if (categoryArr.length > 0) {
+      clearValidate();
+    }
+    setPostCategory(categoryArr);
+  }, [categoryArr]);
 
   return (
     <>
@@ -42,6 +52,8 @@ const Category = (props: Props) => {
               </label>
             </div>
           ))}
+
+          {validate && <WarningText warningText={validate} />}
         </div>
       ) : (
         <></>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import WarningText from "./WarningText";
 
 type Props = {
@@ -21,6 +21,7 @@ const InputFiled = ({
     e.target.style.height = "auto";
     e.target.style.height = e.target.scrollHeight + "px";
   }
+
   return (
     <>
       <textarea

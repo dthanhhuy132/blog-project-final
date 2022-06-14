@@ -27,7 +27,6 @@ const PostDetail = (props: Props) => {
 
   const postDetail: Post = useSelector((state: any) => state.Posts.postDetail);
 
-  console.log(slug);
   useEffect(() => {
     dispatch(getDetailPost(slug));
   }, [slug]);
@@ -35,6 +34,10 @@ const PostDetail = (props: Props) => {
   useEffect(() => {
     FormatPostDetail();
   }, [postDetail]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div className="flex px-2 lg:px-0 gap-10">
@@ -52,8 +55,6 @@ const PostDetail = (props: Props) => {
         <CommentForm postDetail={postDetail} />
         <CommentItem commentParent={true} />
         <CommentItem />
-        <CommentItem />
-        <CommentItem commentParent={true} />
       </div>
 
       <div className="flex flex-col gap-10 w-1/4">

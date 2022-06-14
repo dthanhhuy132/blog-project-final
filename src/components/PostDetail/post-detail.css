@@ -10,3 +10,14 @@
 .dth-p {
   margin-bottom: 15px;
 }
+
+.dth-video-wrapper {
+  position: relative;
+  padding-bottom: 56.25%;
+}
+
+.dth-video-wrapper-item {
+  position: absolute;
+  padding-bottom: unset !important;
+  height: 100% !important;
+}

@@ -8,7 +8,7 @@ type Props = {};
 const Header = (props: Props) => {
   const [themeMode, setThemeMode] = useState(localStorage.getItem("theme"));
   return (
-    <div className="container-full flex justify-between items-center py-[5px] shadow-md px-2 lg:px-5 dark:!bg-[#242526]">
+    <div className="container-full flex items-center py-[5px] shadow-md px-2 lg:px-5 dark:!bg-[#242526]">
       <div className="lg:w-1/4">
         <HeaderLogo />
       </div>
