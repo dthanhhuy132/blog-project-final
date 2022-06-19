@@ -19,7 +19,7 @@ const LoginForm = ({
       <InputForm
         title="Username"
         handleChange={(text: string) =>
-          setLoginData({ ...loginData, userName: text })
+          setLoginData({ ...loginData, username: text })
         }
       />
       <InputForm

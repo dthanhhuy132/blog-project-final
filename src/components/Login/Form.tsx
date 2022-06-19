@@ -12,12 +12,12 @@ type Props = {};
 
 const Form = (props: Props) => {
   const [loginData, setLoginData] = useState({
-    userName: "",
+    username: "",
     userPassword: "",
   });
   const [isSavePassword, setIsSavePassword] = useState(true);
   const [registerData, setRegisterData] = useState({
-    userName: "",
+    username: "",
     userFirstName: "",
     userLastName: "",
     userPassword: "",

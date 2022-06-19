@@ -27,7 +27,7 @@ const PostItemAuthorAndTime = ({
 
   function handleClickAuthor(e: any) {
     e.stopPropagation();
-    navigate(`/${authorInfo?.userName}`);
+    navigate(`/${authorInfo?.username}`);
   }
 
   return (

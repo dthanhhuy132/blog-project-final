@@ -9,7 +9,7 @@ const checkUserAndPassword = (allUser:User[], userData:any, type = 'checkLogin')
   };
   if(type === 'checkLogin') {
     allUser.forEach(item => {
-      if(item.userName.toLowerCase() === userData.userName.toLowerCase() && item.userPassword === userData.userPassword) {
+      if(item.username.toLowerCase() === userData.username.toLowerCase() && item.userPassword === userData.userPassword) {
         return result = {
           isValid: true,
           currentUser: item
@@ -20,7 +20,7 @@ const checkUserAndPassword = (allUser:User[], userData:any, type = 'checkLogin')
 
   if(type === 'checkRegister' && allUser.length > 0) {
     allUser.forEach(item => {
-      if(item.userName.toLowerCase === userData.userName.toLowerCase()) {
+      if(item.username.toLowerCase === userData.username.toLowerCase()) {
         return result = {
           isValid: true,
           currentUser: {}
