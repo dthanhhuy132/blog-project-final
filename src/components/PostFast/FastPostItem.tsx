@@ -34,6 +34,11 @@ const FastPostItem = ({
   const userInfo: User =
     users[users.findIndex((user: any) => user.id === userId)];
 
+  function handleClickOnUserName(e: any) {
+    e.stopPropagation();
+    navigate(`/${userInfo.username}`);
+  }
+
   return (
     <div
       className={`relative w-[130px] h-[200px] transition-all duration-200 select-none
@@ -74,17 +79,20 @@ const FastPostItem = ({
           </div>
 
           {/* avatar image */}
-          <div className={`flex items-center`}>
+          <div
+            className={`flex items-center group`}
+            onClick={(e) => handleClickOnUserName(e)}
+          >
             <img
               src={userInfo.avatarBase64 || userInfo.avatartLink}
               alt=""
-              className={`object-cover rounded-full border-[2px] border-violet-500 absolute top-2 left-2 md:top-2 md:left-2
+              className={`object-cover rounded-full border-[2px] border-violet-500 absolute top-2 left-2 md:top-2 md:left-2 group-hover:border-blue-500
             ${smallSize ? "w-[35px] h-[35px]" : "w-[42px] h-[42px]"}
             ${active && "!w-[50px] h-[50px]"}
             `}
             />
             <p
-              className={`text-white ml-2 absolute text-[0.9rem] bottom-2 md:bottom-[unset] left-1 
+              className={`text-white ml-2 absolute text-[0.9rem] bottom-2 md:bottom-[unset] left-1 group-hover:text-blue-400
             ${smallSize ? "" : "md:top-5 md:left-12"}
             ${active && "md:left-14 md:top-6"}
             `}
