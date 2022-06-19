@@ -7,12 +7,17 @@ import { useEffect, useState } from "react";
 import PostEdittor from "./PostEditor";
 import TitleField from "./TitleField";
 import Category from "./Category";
+import { useDispatch } from "react-redux";
+import { createNewPost } from "../../store/posts/action";
+import stringToSlug from "../common/StringToSlug";
+import CheckUserExist from "../common/CheckUserExist";
 
 type Props = {};
 
 const CreatePost = (props: Props) => {
+  const { currentUser } = CheckUserExist();
   const [post, setPost] = useState({
-    userId: "",
+    userId: currentUser?.id,
     imageHeroBase64: "",
     imageHeroLink: "",
     title: "",
@@ -33,6 +38,9 @@ const CreatePost = (props: Props) => {
   const [validImg, setValidImg] = useState("");
 
   const [imageHeroBase64, setImageHeroBase64] = useState("");
+
+  const [isPosting, setIsPosting] = useState(false);
+  const dispatch = useDispatch();
 
   // _______________________________________________________________ SUBMIT POST
 
@@ -58,12 +66,12 @@ const CreatePost = (props: Props) => {
     ) {
       return false;
     } else if (
-      (post.title.trim() !== "" &&
-        post.summary.trim() !== "" &&
-        post.content.trim() !== "" &&
-        post.content.length !== 11 &&
-        post.imageHeroBase64.trim() !== "") ||
-      post.imageHeroLink.trim() !== ""
+      post.title.trim() !== "" &&
+      post.summary.trim() !== "" &&
+      post.content.trim() !== "" &&
+      post.content.length !== 11 &&
+      post.category.length > 0 &&
+      (post.imageHeroBase64.trim() !== "" || post.imageHeroLink.trim() !== "")
     ) {
       return true;
     }
@@ -71,7 +79,9 @@ const CreatePost = (props: Props) => {
 
   function handleSubmitPost() {
     let isValidPost = validdatePost();
-    if (isValidPost) console.log("nộp thì ra cái gì nè", post);
+    if (isValidPost) {
+      dispatch(createNewPost({ ...post, slug: stringToSlug(post.title) }));
+    }
   }
 
   useEffect(() => {
@@ -81,8 +91,7 @@ const CreatePost = (props: Props) => {
   return (
     <div className="text-left mt-5 mb-12 px-2 lg:px-0">
       <p className="font-bold mb-5 text-[1.5rem] dark:text-gray-300">
-        {" "}
-        Let's share your moment{" "}
+        Let's share your moment
       </p>
 
       <UploadImage

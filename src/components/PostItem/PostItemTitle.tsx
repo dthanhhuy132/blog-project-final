@@ -14,9 +14,9 @@ const PostItemTitle = ({
   title,
 }: Props) => {
   const classes = classNames("text-left line-clamp-2 mb-2", {
-    "text-white text-[1.5rem] md:text-[1.8rem] font-bold": !normalView,
+    "text-white text-[1.3rem] md:text-[1.7rem] font-bold": !normalView,
     "text-black text-[1.1rem] md:text-[1.1rem] font-semibold": normalView,
-    "text-white text-[1rem] md:text-[1.2rem] font-semibold": titleSmaller,
+    "text-white text-[1.2rem] md:!text-[1.4rem] font-semibold": titleSmaller,
   });
 
   return (

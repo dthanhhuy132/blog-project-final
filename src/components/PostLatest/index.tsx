@@ -17,20 +17,19 @@ const LatestPost = (props: Props) => {
   const dispatch = useDispatch();
 
   function getMorePost() {
-    if (_page && _limit && _totalRows && _page * _limit >= _totalRows) return;
     dispatch(getLastestPosts({ _page: _page + 1 }));
   }
 
   return (
     <div className="mt-5 mb-10">
-      <SectionTitle link="/popular-posts">Latest Posts</SectionTitle>aaaa
+      <SectionTitle link="/popular-posts">Latest Posts</SectionTitle>
       {data.top3.length > 0 ? (
         <div className="flex gap-3 flex-col">
           <div className="flex flex-col md:flex-row gap-6 ">
             {data.top3.map((item: Post, index: number) => (
               <PostItem
                 titleSmaller
-                imageHeight={300}
+                imageHeight={400}
                 data={item}
                 key={index}
               />
@@ -39,13 +38,13 @@ const LatestPost = (props: Props) => {
 
           <div className="gap-6 mt-4">
             <InfiniteScroll
-              dataLength={10}
               next={getMorePost}
               style={{ overflow: "unset" }}
               hasMore={_page * _limit <= _totalRows}
+              dataLength={_page * 10}
               loader={
                 <div className="absolute top-full left-0 w-full grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
-                  {Array.from(Array(7)).map((v, i) => (
+                  {Array.from(Array(2)).map((v, i) => (
                     <SkeletonPostItem normalView showDetail key={i} />
                   ))}
                 </div>
@@ -67,7 +66,7 @@ const LatestPost = (props: Props) => {
       ) : (
         <>
           <div className="flex flex-col md:flex-row gap-6 ">
-            {Array.from(Array(3)).map((v, i) => (
+            {Array.from(Array(2)).map((v, i) => (
               <SkeletonPostItem imageHeight={300} key={i} />
             ))}
           </div>

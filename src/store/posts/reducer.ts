@@ -1,5 +1,5 @@
 import { FastPost, Pagination, Post } from "../../components/interface"
-import { GET_LASTEST_POSTS, GET_FAST_POSTS, GET_POPULAR_POSTS, GET_MORE_LASTEST_POSTS, GET_POST_DETAIL } from "./action"
+import { GET_LASTEST_POSTS, GET_FAST_POSTS, GET_POPULAR_POSTS, GET_MORE_LASTEST_POSTS, GET_POST_DETAIL, GET_MORE_FAST_POSTS,RESET_POST_DETAIL } from "./action"
 
 
 export interface IPostReducer {
@@ -68,10 +68,17 @@ export default function postReducer(state = initState, action: any) {
           pagination: action.payload.pagination
         }
       }
-  
+
+    case GET_MORE_FAST_POSTS:
+      return {
+        ...state,
+        fastPosts: {
+          data: [...state.fastPosts.data, ...action.payload.data],
+          pagination: action.payload.pagination
+        }
+      }
 
       case GET_POPULAR_POSTS:
-   
       return {
         ...state,
         populartPosts: {
@@ -85,13 +92,12 @@ export default function postReducer(state = initState, action: any) {
 
 
       case GET_LASTEST_POSTS:
-       
         return {
           ...state,
           lastestPosts: {
             data: {
-              top3:action.payload.data.slice(0,3),
-              restPosts:action.payload.data.slice(3,7)
+              top3:action.payload.data.slice(0,2),
+              restPosts:action.payload.data.slice(2,6)
             },
             pagination: action.payload.pagination
           }
@@ -114,6 +120,12 @@ export default function postReducer(state = initState, action: any) {
           ...state,
           postDetail: action.payload
         }
+
+        case RESET_POST_DETAIL:
+          return {
+            ...state,
+            postDetail: null
+          }
 
     default:
       return state;

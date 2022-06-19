@@ -10,13 +10,13 @@ type Props = {
 
 const PostDetailTitle = ({ postDetail }: Props) => {
   return (
-    <div className="relative w-full h-full">
+    <div className="relative w-full h-full rounded-br-2xl rounded-bl-2xl  overflow-hidden">
       <img
         src={postDetail?.imageHeroBase64 || postDetail?.imageHeroLink || noImg}
         alt="heroImage"
-        className="w-full h-full brightness-75 "
+        className="w-full max-h-[70vh] object-cover brightness-75 "
       />
-      <div className="absolute w-full h-full top-0 left-0 bg-gradient-to-t from-[#000000e0] to-[#0000] z-1"></div>
+      <div className="absolute w-full h-full top-0 left-0 bg-gradient-to-t from-[#000000cc] to-[#0000] z-1"></div>
 
       <PostDetailCommonInfo post={postDetail} />
     </div>

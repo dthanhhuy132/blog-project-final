@@ -3,9 +3,14 @@ import React, { useEffect, useState } from "react";
 type Props = {
   title: string;
   inputType?: string;
+  handleChange?: (text: string) => void;
 };
 
-const InputForm = ({ title, inputType = "text" }: Props) => {
+const InputForm = ({
+  title,
+  inputType = "text",
+  handleChange = () => {},
+}: Props) => {
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [initInputType, setInitInputType] = useState(inputType);
 
@@ -31,6 +36,7 @@ const InputForm = ({ title, inputType = "text" }: Props) => {
           autoComplete="off"
           type={initInputType}
           className="w-full rounded-md px-2 py-2 text-sm"
+          onChange={(e: any) => handleChange(e.target.value)}
         />
 
         {inputType === "password" && (

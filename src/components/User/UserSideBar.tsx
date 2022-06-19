@@ -12,7 +12,7 @@ const UserSideBar = (props: Props) => {
 
   return (
     <div className="md:w-2/5">
-      <FastPost smallSize data={data} />
+      {/* <FastPost smallSize data={data} /> */}
 
       <div>
         <SectionTitle>Top Yêu thích</SectionTitle>

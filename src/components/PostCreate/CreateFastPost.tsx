@@ -24,7 +24,6 @@ const CreateFastPost = (props: Props) => {
 
   function handleSubmitPost() {
     validdatePost();
-    console.log("fastPost", fastPost);
   }
 
   useEffect(() => {
@@ -48,7 +47,7 @@ const CreateFastPost = (props: Props) => {
         />
       </div>
 
-      <div className="md:absolute md:w-3/5 md:top-[147px] md:pr-4 lg:pr-2 md:flex md:flex-col md:gap-10">
+      <div className="md:absolute md:w-3/5 md:top-[147px] md:pr-4 lg:pr-2 md:flex md:flex-col md:gap-[34px]">
         <div className="flex flex-col mb-5">
           <TitleField>Audio link</TitleField>
           <InputFiled

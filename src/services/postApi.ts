@@ -1,8 +1,9 @@
+import { Post } from "../components/interface"
 import api from "./api"
 
 const postApi = {
   getFastPosts({
-    _limit = 10,
+    _limit = 7,
     _page = 1,
     _sort='createdAt',
     _order='desc',
@@ -48,6 +49,10 @@ const postApi = {
     return api.get('/posts', {
       params
     })
+  },
+
+  createPost(newPost:any) {
+    return api.post('/posts', newPost)
   }
 }
 

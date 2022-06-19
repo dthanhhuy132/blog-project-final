@@ -4,5 +4,7 @@ export interface FastPost {
   imageLink: string,
   videoLink: string,
   musicLink: string,
-  createdAt: number
+  createdAt: number,
+  id: string;
+  userId:string;
 }

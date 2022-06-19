@@ -7,7 +7,7 @@ type Props = {
 
 const PostDetailCommonInfo = ({ post }: Props) => {
   return (
-    <div className="absolute bottom-2 left-2 text-white text-left">
+    <div className="absolute bottom-2 left-2 text-white text-left z-10">
       <p className="mb-3 text-[1.5rem] font-semibold lead-[1] line-clamp-3">
         {post?.title}
       </p>

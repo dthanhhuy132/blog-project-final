@@ -1,42 +1,62 @@
 import classNames from "classnames";
-import React from "react";
-import { Link } from "react-router-dom";
+import { userInfo } from "os";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { idText } from "typescript";
+import { User } from "../interface/user";
+
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+dayjs.extend(relativeTime);
 
 type Props = {
   normalView?: boolean;
   noAuthor?: boolean;
+  authorInfo: User;
+  createdAt: number | undefined;
 };
 
 const PostItemAuthorAndTime = ({
   normalView = false,
   noAuthor = false,
+  authorInfo,
+  createdAt,
 }: Props) => {
+  const navigate = useNavigate();
+
+  function handleClickAuthor(e: any) {
+    e.stopPropagation();
+    navigate(`/${authorInfo?.userName}`);
+  }
+
   return (
-    <Link
-      to="/userne"
-      className={`flex items-center w-full group ${
+    <div
+      className={`flex items-center gap-7 w-full  ${
         normalView ? "text-black text-[0.8rem]" : "text-white text-[0.8rem]"
       } dark:text-gray-300`}
     >
       {!noAuthor && (
-        <img
-          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJCEF_8YGMWFQ2FuuZT05vmAU_-HN_6q1WTID4s47rav2SV1VO4a3Bsi5AQwq5oKwIpfQ&usqp=CAU"
-          alt=""
-          className="w-[30px] h-[30px] object-cover rounded-full border-[2px] border-violet-500 group-hover:border-blue-500 "
-        />
+        <div
+          className="group flex gap-1 items-center"
+          onClick={(e: any) => handleClickAuthor(e)}
+        >
+          <img
+            src={authorInfo?.coverBase64 || authorInfo?.avatartLink}
+            alt=""
+            className="w-[30px] h-[30px] object-cover rounded-full border-[2px] border-violet-500 group-hover:border-blue-500 "
+          />
+
+          <span className="group-hover:text-blue-400 whitespace-nowrap">
+            {authorInfo?.userFirstName} {authorInfo?.userLastName}
+          </span>
+        </div>
       )}
-      <div className="w-full">
-        {!noAuthor && (
-          <>
-            <span className="ml-2 group-hover:text-blue-400">Tên gì đây</span>
-            <span className=" inline-block mx-3">|</span>
-          </>
-        )}
-        <span className="">
-          <i className="fa-solid fa-clock mr-1 text-gray-400"></i>22/2/2022
-        </span>
+      <div className="w-full ml-2">
+        <i className="fa-solid fa-clock mr-1 text-gray-400"></i>
+        {dayjs().to(dayjs(createdAt))}
       </div>
-    </Link>
+    </div>
   );
 };
 
