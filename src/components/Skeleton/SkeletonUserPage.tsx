@@ -68,7 +68,7 @@ const SkeletonUserPage = (props: Props) => {
             <SectionTitle>Fast Post</SectionTitle>
             <div className="overflow-hidden whitespace-nowrap">
               {Array.from(Array(5)).map((v, i) => (
-                <SkeletonFastPost smallSize />
+                <SkeletonFastPost smallSize key={i} />
               ))}
             </div>
           </>

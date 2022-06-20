@@ -10,9 +10,7 @@ export const GET_MORE_POPULAR_POSTS='GET_MORE_POPULAR_POSTS';
 export const GET_MORE_LASTEST_POSTS='GET_MORE_LASTEST_POSTS';
 
 export const GET_POST_DETAIL = 'GET_POST_DETAIL';
-export const RESET_POST_DETAIL = 'RESET_POST_DETAIL'
-
-
+export const RESET_POST_DETAIL = 'RESET_POST_DETAIL';
 
 export const getFastPosts:any = ({
   _page=1,
@@ -44,12 +42,14 @@ export const getFastPosts:any = ({
 }
 
 export const getPopularPosts:any = ({
+  _sort='love',
   ...restParams
 } = {}) =>  {
 
   return async (dispatch:any) => {
     try {
       const response = await postApi.getPosts({
+        _sort,
         ...restParams
       })
         
@@ -76,9 +76,6 @@ export const getLastestPosts:any = ({
         _limit,
         ...restParams
       })
-
-      
-
       dispatch({
         type: _page === 1 ? GET_LASTEST_POSTS : GET_MORE_LASTEST_POSTS,
         payload: response.data
@@ -110,9 +107,16 @@ export function createNewPost(newPost:any):any {
   return async (dispatch:any) => {
     try {
       const res = await postApi.createPost(newPost)
+      return {
+        ok: true,
+        data: res.data
+      }
       
     } catch (error) {
       console.log('error', error)
+      return {
+        ok: false,
+      }
     }
   }
 }
