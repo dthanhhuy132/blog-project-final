@@ -15,6 +15,7 @@ type Props = {
   noAuthor?: boolean;
   authorInfo: User;
   createdAt: number | undefined;
+  smallSize?: boolean;
 };
 
 const PostItemAuthorAndTime = ({
@@ -42,12 +43,12 @@ const PostItemAuthorAndTime = ({
           onClick={(e: any) => handleClickAuthor(e)}
         >
           <img
-            src={authorInfo?.coverBase64 || authorInfo?.avatartLink}
+            src={authorInfo?.avatarBase64 || authorInfo?.avatartLink}
             alt=""
             className="w-[30px] h-[30px] object-cover rounded-full border-[2px] border-violet-500 group-hover:border-blue-500 "
           />
 
-          <span className="group-hover:text-blue-400 whitespace-nowrap">
+          <span className={`group-hover:text-blue-400 whitespace-nowrap`}>
             {authorInfo?.userFirstName} {authorInfo?.userLastName}
           </span>
         </div>

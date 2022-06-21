@@ -2,7 +2,7 @@ import React from "react";
 import { User } from "../interface/user";
 
 type Props = {
-  userInfo: User | null;
+  userInfo: User | undefined;
 };
 
 const UserInfo = ({ userInfo }: Props) => {

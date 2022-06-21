@@ -6,6 +6,7 @@ import {
   getUserInfo,
   getUserLatestPost,
   getUserPopularPost,
+  RESET_POST,
 } from "../../store/user/action";
 import { User } from "../interface/user";
 import SkeletonUserPage from "../Skeleton/SkeletonUserPage";
@@ -17,33 +18,30 @@ type Props = {};
 
 const UserProfile = (props: Props) => {
   const param = useParams();
+
   const dispatch = useDispatch();
   const username = param.userPage;
 
   const [isLoading, setIsLoading] = useState(true);
-  const [userInfo, setIsUserInfo] = useState<User | null>(null);
+  const [userInfo, setIsUserInfo] = useState<User | undefined>(undefined);
 
   const { currentUser, allUser, userPosts } = useSelector(
     (state: any) => state.User
   );
 
-  // const findIdIndex = allUser?.findIndex(
-  //   (item: User) => item.username === username
-  // );
-  // const userId = allUser[findIdIndex].id;
-
-  // console.log("userId", userId);
+  const { lastestPosts, popularPosts, fastPosts } = userPosts;
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     if (username) {
       dispatch(getUserInfo({ username: username })).then((res: any) => {
         if (res.ok) {
           setIsUserInfo(res.data);
-          setIsLoading(false);
           if (res.data.id) {
             dispatch(getUserLatestPost({ userId: res.data.id }));
             dispatch(getUserPopularPost({ userId: res.data.id, love_gte: 1 }));
             dispatch(getUserFastPost({ userId: res.data.id }));
+            setIsLoading(false);
           }
         }
       });
@@ -52,16 +50,19 @@ const UserProfile = (props: Props) => {
 
   return (
     <div className="px-2 lg:px-0">
-      {!isLoading ? (
+      {isLoading ||
+      lastestPosts.data.length === 0 ||
+      popularPosts.data.length === 0 ||
+      fastPosts.data.length === 0 ? (
+        <SkeletonUserPage />
+      ) : (
         <>
           <UserInfo userInfo={userInfo} />
           <div className="mt-[120px] md:mt-[80px] flex flex-col-reverse md:flex-row gap-8">
-            <UserPosts />
-            <UserSideBar />
+            <UserPosts lastestPosts={lastestPosts} />
+            <UserSideBar popularPosts={popularPosts} fastPosts={fastPosts} />
           </div>
         </>
-      ) : (
-        <SkeletonUserPage />
       )}
     </div>
   );

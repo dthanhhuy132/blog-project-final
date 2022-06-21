@@ -94,7 +94,6 @@ export const getUserFastPost:any = ({_page = 1,...restParams} = {}) => {
   return async (dispatch:any) => {
     try {
       const res = await postApi.getFastPosts({_page, ...restParams})
-      console.log('res.data trong fastpost', res.data)
       dispatch({
         type: _page === 1 ? GET_USER_FASTPOST : GET_MORE_USER_FASTPOST,
         payload: res.data,

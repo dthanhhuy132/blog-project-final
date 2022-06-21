@@ -1,3 +1,4 @@
+import { bindActionCreators } from "redux";
 import { Post } from "../../components/interface";
 import postApi from "../../services/postApi";
 
@@ -10,7 +11,13 @@ export const GET_MORE_POPULAR_POSTS='GET_MORE_POPULAR_POSTS';
 export const GET_MORE_LASTEST_POSTS='GET_MORE_LASTEST_POSTS';
 
 export const GET_POST_DETAIL = 'GET_POST_DETAIL';
+export const GET_RELATED_POST = 'GET_RELATED_POST';
+
+export const ADD_NEW_POST = 'ADD_NEW_POST';
+export const EDIT_POST = 'EDIT_POST'
+
 export const RESET_POST_DETAIL = 'RESET_POST_DETAIL';
+
 
 export const getFastPosts:any = ({
   _page=1,
@@ -102,20 +109,58 @@ export function getDetailPost(postSlug:string):any {
   }
 }
 
+export const getRelatedPost:any = ({_limit=5, ...restParams } ={}) => {
+  console.log({restParams})
+  return async (dispatch:any) => {
+    try {
+      const response = await postApi.getPosts({_limit, ...restParams})
+      return dispatch({
+        type:GET_RELATED_POST,
+        payload:response.data
+      })
+    } catch (error) {
+      console.log('Error', error )
+    }
+  }
+}
+
 
 export function createNewPost(newPost:any):any {
   return async (dispatch:any) => {
     try {
       const res = await postApi.createPost(newPost)
+      dispatch(getLastestPosts())
+
+      
+     
       return {
         ok: true,
         data: res.data
       }
-      
     } catch (error) {
       console.log('error', error)
       return {
         ok: false,
+      }
+    }
+  }
+}
+
+
+export function editPost(editPost:any):any {
+  return async (dispatch:any) => {
+    try {
+      const res = await postApi.udpatePost(editPost) 
+      console.log('edit post tra ve la gi', res.data)
+      dispatch(getLastestPosts())
+      dispatch(getPopularPosts({ love_gte: 1 }))
+      return {
+        ok:true,
+        data: res.data
+      }
+    } catch (error) {
+      return {
+        ok:false
       }
     }
   }

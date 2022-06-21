@@ -1,9 +1,10 @@
 import "animate.css";
 import "./App.css";
 import "react-loading-skeleton/dist/skeleton.css";
+import "react-toastify/dist/ReactToastify.css";
 
 import React, { useEffect } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import Header from "./components/Header";
@@ -20,18 +21,21 @@ import {
   getPopularPosts,
 } from "./store/posts/action";
 import { getCategoryList } from "./store/category/action";
-import { getAllUser } from "./store/user/action";
+import { getAllUser, RESET_POST } from "./store/user/action";
 import CheckUserExist from "./components/common/CheckUserExist";
 import FastPostPage from "./pages/FastPostPage";
 
 function App() {
   const dispatch = useDispatch();
+  const param = useParams();
+
+  console.log("param ngoai app", param);
 
   const { isUserExist } = CheckUserExist();
 
   useEffect(() => {
     dispatch(getFastPosts());
-    dispatch(getLastestPosts({ _limit: 6 }));
+    dispatch(getLastestPosts());
     dispatch(getPopularPosts({ love_gte: 1 }));
     dispatch(getCategoryList());
 
@@ -48,6 +52,10 @@ function App() {
           <Route path="/post" element={<UserPage />}></Route>
           <Route path="/post/:postid" element={<PostDetailPage />}></Route>
           <Route path="/fastpost/:id" element={<FastPostPage />}></Route>
+          <Route
+            path="/:username/fastpost/:id"
+            element={<FastPostPage />}
+          ></Route>
           <Route path="/:userPage" element={<UserPage />}></Route>
           <Route path="/login" element={<LoginPage />}></Route>
           {isUserExist && (
@@ -60,6 +68,10 @@ function App() {
             </>
           )}
           <Route path="/register" element={<LoginPage />}></Route>
+          <Route
+            path="/edit-post/:postslug"
+            element={<CreatePostPage />}
+          ></Route>
         </Routes>
       </div>
     </div>

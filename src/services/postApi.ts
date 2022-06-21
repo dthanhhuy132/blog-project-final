@@ -51,6 +51,14 @@ const postApi = {
     })
   },
 
+  udpatePost(editPost:any) {
+    return api.patch(`/posts/${editPost.id}`, editPost )
+  },
+
+  deletePost(editPost:any) {
+    return api.delete(`/posts/${editPost.id}` )
+  },
+
   createPost(newPost:any) {
     return api.post('/posts', newPost)
   }

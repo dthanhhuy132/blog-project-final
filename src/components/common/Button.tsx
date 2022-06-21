@@ -18,8 +18,8 @@ const Button = ({
   }
   return (
     <button
-      className={`rounded-md text-white bg-blue-600 dark:text-white whitespace-nowrap mx-2 p-2 h-full border-[1px] ${
-        isLoading && "bg-blue-500"
+      className={`rounded-md text-white bg-blue-600 hover:bg-blue-400 hover:text-gray-900 whitespace-nowrap h-full w-full py-3 mt-2 order-[1px] font-bold text-[1.2rem] ${
+        isLoading && "bg-blue-400 pointer-events-none"
       }`}
       onClick={handleClickButton}
     >

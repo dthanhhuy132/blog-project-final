@@ -3,10 +3,13 @@ export default function setClassForTextEditor(themeMode:string) {
   const editorEls = document.querySelectorAll('.sun-editor .se-wrapper .se-wrapper-inner');
   const eidtorModalEls = document.querySelectorAll('.sun-editor .se-dialog .se-dialog-inner .se-dialog-content')
   const editTrayEl = document.querySelector('.sun-editor .se-btn-tray');
-  const sunEditEl = document.querySelector('.sun-editor')
+  const sunEditEl = document.querySelector('.sun-editor');
+  const figcaptionEls = document.querySelectorAll('.sun-editor-editable[contenteditable=true] figure figcaption');
+
 
   if(themeMode === 'dark') {
     editorEls.forEach(editorEl => editorEl?.classList.add('dark-mode'))
+    figcaptionEls.forEach(item => item?.classList.add('dark-mode-caption'))
     eidtorModalEls.forEach(eidtorModalEl => {
       eidtorModalEl?.classList.add('dark-mode-modal')
       eidtorModalEl.querySelectorAll('label')?.forEach(item => item.classList.add('dark-mode-label'))
@@ -15,6 +18,8 @@ export default function setClassForTextEditor(themeMode:string) {
     sunEditEl?.classList.add('dark-mode')
   } else {
     editorEls.forEach(editorEl => editorEl?.classList.remove('dark-mode'))
+    figcaptionEls.forEach(item => item?.classList.remove('dark-mode-caption'))
+
     eidtorModalEls.forEach(eidtorModalEl => {
       eidtorModalEl?.classList.remove('dark-mode-modal')
       eidtorModalEl.querySelectorAll('label')?.forEach(item => item.classList.remove('dark-mode-label'))

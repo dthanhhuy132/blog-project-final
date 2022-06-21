@@ -20,10 +20,12 @@ type Props = {
   titlePostSize?: number;
   imageHeight?: number;
   data?: Post;
+  smallSize?: boolean;
 };
 
 const PostItem = ({
   normalView = false,
+  smallSize = false,
   showDetail = false,
   titleSmaller = false,
   noAuthor = false,
@@ -77,6 +79,7 @@ const PostItem = ({
           <PostItemDetail lineClamp={lineClamp} summary={data?.summary} />
         )}
         <PostItemAuthorAndTime
+          smallSize={smallSize}
           noAuthor={noAuthor}
           normalView={normalView}
           authorInfo={author}

@@ -8,16 +8,24 @@ import SkeletonFastPost from "../Skeleton/SkeletonFastPost";
 import { useDispatch, useSelector } from "react-redux";
 import { getFastPosts } from "../../store/posts/action";
 import Button from "../common/Button";
+import { User } from "../interface/user";
 
 type Props = {
   smallSize?: boolean;
+  pagination: Pagination;
+  data: FastPost[];
+  linkToUserFastPost?: string;
 };
 
-const FastPostComponent = ({ smallSize = false }: Props) => {
+const FastPostComponent = ({
+  smallSize = false,
+  pagination,
+  data,
+  linkToUserFastPost = "",
+}: Props) => {
   const allFastPost = useSelector((state: any) => state.Posts.fastPosts);
   const dispatch = useDispatch();
   // console.log("allFastPost", allFastPost);
-  const { data, pagination } = allFastPost;
   const { _page, _limit, _totalRows } = pagination;
 
   const [isLoading, setIsLoading] = useState(false);
@@ -43,7 +51,12 @@ const FastPostComponent = ({ smallSize = false }: Props) => {
             <div className="relative whitespace-nowrap">
               <>
                 {data.map((fastPost: FastPost, index: number) => (
-                  <FastPostItem key={index} fastPost={fastPost} />
+                  <FastPostItem
+                    key={index}
+                    fastPost={fastPost}
+                    smallSize={smallSize}
+                    linkToUserFastPost={linkToUserFastPost}
+                  />
                 ))}
                 {isLoading && (
                   <>
@@ -55,9 +68,12 @@ const FastPostComponent = ({ smallSize = false }: Props) => {
               </>
             </div>
             {_page * _limit < _totalRows && (
-              <Button handleClick={handleClickLoadMore} isLoading={isLoading}>
+              <button
+                onClick={handleClickLoadMore}
+                className="rounded-md text-white bg-blue-600 dark:text-white whitespace-nowrap mx-2 p-2 h-full border-[1px]"
+              >
                 Load More
-              </Button>
+              </button>
             )}
           </>
         ) : (

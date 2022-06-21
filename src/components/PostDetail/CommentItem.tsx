@@ -60,7 +60,6 @@ const CommentItem = ({ commentParent = false, thirdCmt = false }: Props) => {
         </div>
 
         {commentParent && <CommentItem />}
-        {commentParent && <CommentItem />}
       </div>
     </div>
   );

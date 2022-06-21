@@ -12,8 +12,8 @@ const LoadingIcon = (props: Props) => {
         background: "transparent",
         display: "block",
       }}
-      width="50px"
-      height="50px"
+      width="30px"
+      height="30px"
       viewBox="0 0 100 100"
       preserveAspectRatio="xMidYMid"
     >

@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { FastPost } from "../interface";
 import { User } from "../interface/user";
 
@@ -13,6 +13,7 @@ type Props = {
   postIndex?: number;
   nextFn?: any;
   previousFn?: any;
+  linkToUserFastPost?: string;
 };
 
 const FastPostItem = ({
@@ -22,6 +23,7 @@ const FastPostItem = ({
   fastPost,
   nextFn = () => {},
   previousFn = () => {},
+  linkToUserFastPost = "",
 }: Props) => {
   const navigate = useNavigate();
   const users = useSelector((state: any) => state.User.allUser);
@@ -29,6 +31,9 @@ const FastPostItem = ({
     "md:w-[170px] md:h-[220px] ": !smallSize,
     "md:w-[130px] md:h-[200px] ": smallSize,
   });
+
+  const param = useParams();
+  const username = param.username;
 
   const userId = fastPost?.userId;
   const userInfo: User =
@@ -49,7 +54,11 @@ const FastPostItem = ({
       ${`get-post-${active ? "active" : ""}`}
       `}
       onClick={() => {
-        navigate(`/fastpost/${fastPost?.id}`);
+        navigate(
+          linkToUserFastPost || username
+            ? `/${linkToUserFastPost || username}/fastpost/${fastPost?.id}`
+            : `/fastpost/${fastPost?.id}`
+        );
       }}
     >
       {active && (
@@ -93,7 +102,7 @@ const FastPostItem = ({
             />
             <p
               className={`text-white ml-2 absolute text-[0.9rem] bottom-2 md:bottom-[unset] left-1 group-hover:text-blue-400
-            ${smallSize ? "" : "md:top-5 md:left-12"}
+            ${smallSize ? "!bottom-1 !left-0" : "md:top-5 md:left-12"}
             ${active && "md:left-14 md:top-6"}
             `}
             >

@@ -1,5 +1,5 @@
 import { FastPost, Pagination, Post } from "../../components/interface"
-import { GET_LASTEST_POSTS, GET_FAST_POSTS, GET_POPULAR_POSTS, GET_MORE_LASTEST_POSTS, GET_POST_DETAIL, GET_MORE_FAST_POSTS,RESET_POST_DETAIL } from "./action"
+import { GET_LASTEST_POSTS, GET_FAST_POSTS, GET_POPULAR_POSTS, GET_MORE_LASTEST_POSTS, GET_POST_DETAIL, GET_MORE_FAST_POSTS, GET_RELATED_POST, RESET_POST_DETAIL, ADD_NEW_POST } from "./action"
 
 
 export interface IPostReducer {
@@ -21,7 +21,8 @@ export interface IPostReducer {
     },
     pagination: Pagination
   },
-  postDetail: Post | null
+  postDetail: Post | null;
+  relatedPosts: Post[] | null
 }
 
 const initState:IPostReducer = {
@@ -56,6 +57,7 @@ const initState:IPostReducer = {
     }
   },
   postDetail: null,
+  relatedPosts:null
 }
 
 export default function postReducer(state = initState, action: any) {
@@ -121,12 +123,34 @@ export default function postReducer(state = initState, action: any) {
           postDetail: action.payload
         }
 
+        // case ADD_NEW_POST:
+      
+        //   return {
+        //     ...state,
+        //     lastestPosts: {
+        //       ...state.lastestPosts,
+        //       data: {
+        //         top3: [...action.payload,...state.lastestPosts.data.top3].slice(0,2),
+        //         restPosts: [...state.lastestPosts.data.top3,...state.lastestPosts.data.top3].slice(1,5)
+        //       }
+        //     }
+        //   }
+
+
+        case GET_RELATED_POST:
+          return {
+            ...state,
+            relatedPosts: action.payload
+          }
+
         case RESET_POST_DETAIL:
           return {
             ...state,
             postDetail: null
           }
 
+
+          
     default:
       return state;
   }

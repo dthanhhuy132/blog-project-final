@@ -58,9 +58,12 @@ const HeaderUserLogedin = (props: Props) => {
               </p>
               <i className="fa-solid fa-ellipsis-vertical hidden md:inline-block mr-2"></i>
 
-              {isShowSubMenu && (
+              {isShowSubMenu && currentUser && (
                 <ul className="absolute w-full top-[120%] left-0 rounded-lg text-left bg-gray-200 dark:bg-[#242526] py-1 flex flex-col z-50 text-[0.9rem]">
-                  <li className="py-2 pl-2 hover:bg-gray-400 dark:hover:bg-black">
+                  <li
+                    className="py-2 pl-2 hover:bg-gray-400 dark:hover:bg-black"
+                    onClick={() => navigate(`/${currentUser?.username}`)}
+                  >
                     My page
                   </li>
                   <li className="py-2 pl-2 hover:bg-gray-400 dark:hover:bg-black">

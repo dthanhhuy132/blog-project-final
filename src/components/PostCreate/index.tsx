@@ -8,28 +8,54 @@ import PostEdittor from "./PostEditor";
 import TitleField from "./TitleField";
 import Category from "./Category";
 import { useDispatch } from "react-redux";
-import { createNewPost } from "../../store/posts/action";
+import { createNewPost, editPost } from "../../store/posts/action";
 import stringToSlug from "../common/StringToSlug";
 import CheckUserExist from "../common/CheckUserExist";
+import Button from "../common/Button";
+import { useLocation, useNavigate } from "react-router-dom";
+
+import { ToastContainer, toast } from "react-toastify";
+import { Post } from "../interface";
 
 type Props = {};
 
 const CreatePost = (props: Props) => {
+  const location = useLocation();
+  const initPostValue: any = location.state;
+
+  const isEditMode = location.pathname.indexOf("edit-post") > 0;
+
   const { currentUser } = CheckUserExist();
-  const [post, setPost] = useState({
-    userId: currentUser?.id,
-    imageHeroBase64: "",
-    imageHeroLink: "",
-    title: "",
-    slug: "",
-    summary: "",
-    content: "",
-    comment: 0,
-    love: 0,
-    isReport: false,
-    reportQuantity: 0,
-    category: [],
-  });
+  const [post, setPost] = useState(
+    !isEditMode
+      ? {
+          userId: "",
+          imageHeroBase64: "",
+          imageHeroLink: "",
+          title: "",
+          summary: "",
+          content: "",
+          comment: 0,
+          love: 0,
+          isReport: false,
+          reportQuantity: 0,
+          category: "",
+        }
+      : {
+          id: initPostValue.id,
+          userId: initPostValue.userId,
+          imageHeroBase64: initPostValue.imageHeroBase64,
+          imageHeroLink: initPostValue.imageHeroLink,
+          title: initPostValue.title,
+          summary: initPostValue.summary,
+          content: initPostValue.content,
+          comment: 0,
+          love: 0,
+          isReport: false,
+          reportQuantity: 0,
+          category: initPostValue.category,
+        }
+  );
 
   const [validTitle, setValidTitle] = useState("");
   const [validSummary, setValidSummary] = useState("");
@@ -37,10 +63,11 @@ const CreatePost = (props: Props) => {
   const [validCategory, setValidCategory] = useState("");
   const [validImg, setValidImg] = useState("");
 
-  const [imageHeroBase64, setImageHeroBase64] = useState("");
+  const [imageHeroBase64, setImageHeroBase64] = useState(post.imageHeroBase64);
+  const [isCreateNewPostLoading, setIsCreateNewPostLoading] = useState(false);
 
-  const [isPosting, setIsPosting] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   // _______________________________________________________________ SUBMIT POST
 
@@ -53,7 +80,7 @@ const CreatePost = (props: Props) => {
     if (post.imageHeroBase64 === "" && post.imageHeroLink === "")
       setValidImg("Please choose your image");
 
-    if (post.category.length === 0) {
+    if (post.category === "" || post.category.length === 0) {
       setValidCategory("Please choose post category");
     }
 
@@ -80,13 +107,56 @@ const CreatePost = (props: Props) => {
   function handleSubmitPost() {
     let isValidPost = validdatePost();
     if (isValidPost) {
-      dispatch(createNewPost({ ...post, slug: stringToSlug(post.title) }));
+      setIsCreateNewPostLoading(true);
+      dispatch(
+        createNewPost({
+          ...post,
+          userId: currentUser?.id,
+          slug: stringToSlug(post.title),
+        })
+      ).then((res: any) => {
+        setIsCreateNewPostLoading(false);
+        if (res.ok) {
+          const newPost = res.data;
+          navigate(`/post/${newPost.slug}`);
+        } else {
+          toast.error("Something wrong, please check your connection!");
+        }
+      });
+    }
+  }
+
+  function handleSubmitEditPost() {
+    let isValidPost = validdatePost();
+    if (isValidPost) {
+      setIsCreateNewPostLoading(true);
+      dispatch(
+        editPost({
+          ...post,
+          slug: stringToSlug(post.title),
+        })
+      ).then((res: any) => {
+        setIsCreateNewPostLoading(false);
+        if (res.ok) {
+          const postEdit = res.data;
+          navigate(`/post/${postEdit.slug}`);
+        } else {
+          toast.error("Something wrong, please check your connection!");
+        }
+      });
     }
   }
 
   useEffect(() => {
     setPost({ ...post, imageHeroBase64: imageHeroBase64 });
   }, [imageHeroBase64]);
+
+  useEffect(() => {
+    if (isEditMode) {
+      setPost({ ...post, imageHeroBase64: initPostValue.imageHeroBase64 });
+      console.log("new post", post);
+    }
+  }, [isEditMode]);
 
   return (
     <div className="text-left mt-5 mb-12 px-2 lg:px-0">
@@ -108,6 +178,7 @@ const CreatePost = (props: Props) => {
       <div className="flex flex-col mb-5">
         <TitleField>Post title</TitleField>
         <InputFiled
+          value={post.title}
           inputChange={(e: any) => setPost({ ...post, title: e.target.value })}
           validate={validTitle}
           clearValidate={() => setValidTitle("")}
@@ -117,6 +188,7 @@ const CreatePost = (props: Props) => {
       <div className="flex flex-col mb-5">
         <TitleField>Post summary</TitleField>
         <InputFiled
+          value={post.summary}
           row={4}
           placeholder="Write your post summary..."
           inputChange={(e: any) =>
@@ -140,6 +212,7 @@ const CreatePost = (props: Props) => {
       <div className="flex flex-col mb-5">
         <TitleField>Post Category</TitleField>
         <Category
+          postCategory={post.category}
           validate={validCategory}
           clearValidate={() => setValidCategory("")}
           setPostCategory={(categoryList: any) =>
@@ -148,12 +221,27 @@ const CreatePost = (props: Props) => {
         />
       </div>
 
-      <button
-        className="py-3 bg-blue-600 text-white font-bold text-[1.1rem] w-full rounded-md hover:bg-blue-400 hover:text-gray-900"
-        onClick={handleSubmitPost}
-      >
-        Create my new Post
-      </button>
+      <ToastContainer
+        position="bottom-right"
+        pauseOnHover={false}
+        autoClose={2000}
+      />
+
+      {!isEditMode ? (
+        <Button
+          handleClick={handleSubmitPost}
+          isLoading={isCreateNewPostLoading}
+        >
+          Create my new post
+        </Button>
+      ) : (
+        <Button
+          handleClick={handleSubmitEditPost}
+          isLoading={isCreateNewPostLoading}
+        >
+          Edit my post
+        </Button>
+      )}
     </div>
   );
 };

@@ -100,7 +100,6 @@ export default function userReducer(state=initState, action:any) {
       }  
     // _____________________________________________________________________ popular post
     case GET_USER_POPULAR:
-      console.log('cha vao popular reducer')
       return {
         ...state,
         userPosts: {
@@ -125,8 +124,6 @@ export default function userReducer(state=initState, action:any) {
       }  
       // _____________________________________________________________________ fast post
     case GET_USER_FASTPOST:
-      console.log('chay vao fast pót của reducer')
-      console.log('action.payload. fastpost', action.payload)
       return {
         ...state,
         userPosts: {
@@ -139,8 +136,6 @@ export default function userReducer(state=initState, action:any) {
       }
     
     case GET_MORE_USER_FASTPOST:
-      console.log('action.payload more fastpost',action.payload)
-      console.log('chay vao fast pót của reducer')
       return {
         ...state,
         userPosts: {  
@@ -154,6 +149,7 @@ export default function userReducer(state=initState, action:any) {
     
       // _____________________________________________________________________ reset post
     case RESET_POST:
+      console.log('chay vao reset post ne')
     return {
       ...state,
       userPosts: {

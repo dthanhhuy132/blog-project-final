@@ -3,7 +3,11 @@ import "./post-detail.css";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { getDetailPost, resetPostDetail } from "../../store/posts/action";
+import {
+  getDetailPost,
+  getRelatedPost,
+  resetPostDetail,
+} from "../../store/posts/action";
 import SectionTitle from "../common/SectionTitle";
 import { iCategory, Post } from "../interface";
 import PostItem from "../PostItem";
@@ -27,16 +31,20 @@ const PostDetail = (props: Props) => {
   const pathname = location.pathname;
   let slug = pathname.slice(pathname.lastIndexOf("/") + 1, pathname.length);
 
-  const postDetail: Post = useSelector((state: any) => state.Posts.postDetail);
+  const allUser = useSelector((state: any) => state.User.allUser);
   const allCategory: iCategory[] = useSelector((state: any) => state.Category);
+  const { postDetail, relatedPosts } = useSelector((state: any) => state.Posts);
 
-  let postCategorylist = getCategoryName(postDetail?.category, allCategory);
-  console.log("postCategorylist", postCategorylist);
-
+  let { postCategorylist, randomCate } = getCategoryName(
+    postDetail?.category,
+    allCategory
+  );
   useEffect(() => {
     dispatch(getDetailPost(slug));
+    if (randomCate) {
+      dispatch(getRelatedPost({ _q: randomCate }));
+    }
   }, [slug]);
-
   useEffect(() => {
     FormatPostDetail();
   }, [postDetail]);
@@ -49,7 +57,7 @@ const PostDetail = (props: Props) => {
   return (
     <div className="flex px-2 lg:px-0 gap-10">
       <>
-        {postDetail && allCategory ? (
+        {postDetail && allCategory && allUser ? (
           <>
             <div className="w-3/4 h-full rounded-br-xl rounded-bl-xl overflow-hidden">
               <PostDetailTitle postDetail={postDetail} />
@@ -60,7 +68,7 @@ const PostDetail = (props: Props) => {
                 className="dark:text-gray-300 mt-4 text-[0.9rem] text-left dth-dangerous-html"
                 dangerouslySetInnerHTML={{ __html: `${postDetail?.content}` }}
               />
-              <PostDeatilAction />
+              <PostDeatilAction allUser={allUser} postDetail={postDetail} />
               {/* Comment section */}
               <CommentForm postDetail={postDetail} />
               <CommentItem commentParent={true} />
@@ -73,26 +81,27 @@ const PostDetail = (props: Props) => {
                   Category
                 </SectionTitle>
                 <div className="flex gap-1 flex-wrap flex-stretch">
-                  {postCategorylist.map((cate) => (
+                  {postCategorylist.map((cate, i) => (
                     <Link
                       className="dark:text-gray-300 border-[1px] px-2 rounded-md cursor-pointer hover:bg-slate-600 min-w-[49%] inline-block"
                       to={`/category/${cate.slug}`}
+                      key={i}
                     >
                       {cate.name}
                     </Link>
                   ))}
                 </div>
               </div>
-              <div>
-                <SectionTitle top={5}>Related Posts</SectionTitle>
-                <div className="flex flex-col gap-4">
-                  <PostItem titleSmaller />
-                  <PostItem titleSmaller />
-                  <PostItem titleSmaller />
-                  <PostItem titleSmaller />
-                  <PostItem titleSmaller />
+              {relatedPosts && (
+                <div>
+                  <SectionTitle top={5}>Related Posts</SectionTitle>
+                  <div className="flex flex-col gap-4">
+                    {relatedPosts?.data.map((item: Post, index: number) => (
+                      <PostItem titleSmaller data={item} />
+                    ))}
+                  </div>
                 </div>
-              </div>
+              )}
 
               {/* Category */}
             </div>

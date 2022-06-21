@@ -2,7 +2,14 @@ import React, { useEffect, useLayoutEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Stories from "react-insta-stories";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
+import {
+  Link,
+  Navigate,
+  useLocation,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
+import { collapseTextChangeRangesAcrossMultipleVersions } from "typescript";
 import postSlider from "../components/common/postSlider";
 import { FastPost } from "../components/interface";
 import FastPostComponent from "../components/PostFast";
@@ -14,12 +21,23 @@ type Props = {};
 
 const FastPostPage = (props: Props) => {
   let location = useLocation();
+  const param = useParams();
   const dispatch = useDispatch();
-  const fastPost = useSelector((state: any) => state.Posts.fastPosts);
-  const { data, pagination } = fastPost;
-  const { _page, _limit, _totalRows } = pagination;
 
   const [isLoadingPost, setIsLoadingPost] = useState(false);
+  const username = param.username;
+  console.log("username", username);
+
+  const fastPost = useSelector((state: any) => {
+    if (username) {
+      return state.User.userPosts.fastPosts;
+    } else {
+      return state.Posts.fastPosts;
+    }
+  });
+
+  const { data, pagination } = fastPost;
+  const { _page, _limit, _totalRows } = pagination;
 
   const fastPostId = location.pathname.slice(
     location.pathname.lastIndexOf("/") + 1,
@@ -58,16 +76,14 @@ const FastPostPage = (props: Props) => {
         {data.length > 0 ? (
           <div className="relative whitespace-nowrap flex items-center fast-post-wrapper">
             {data.map((fastPost: FastPost, index: number) => (
-              <>
-                <FastPostItem
-                  key={index}
-                  fastPost={fastPost}
-                  postIndex={index}
-                  // nextFn={handleNextPost}
-                  // previousFn={handlePreviousPost}
-                  active={fastPostId === fastPost.id}
-                />
-              </>
+              <FastPostItem
+                key={index}
+                fastPost={fastPost}
+                postIndex={index}
+                // nextFn={handleNextPost}
+                // previousFn={handlePreviousPost}
+                active={fastPostId === fastPost.id}
+              />
             ))}
 
             {

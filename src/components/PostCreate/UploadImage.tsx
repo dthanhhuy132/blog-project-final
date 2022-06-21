@@ -68,6 +68,10 @@ const UploadImage = ({
 
     setImgCoverBase64("");
     setImageBase64("");
+
+    getImageBase64("");
+    setValidateImg("");
+    clearValidate();
   }
 
   function handleResetImg() {
@@ -90,12 +94,7 @@ const UploadImage = ({
     getImageLink("");
   }, [imgCoverBase64]);
 
-  useEffect(() => {
-    getImageBase64("");
-    setValidateImg("");
-    setImageBase64("");
-    clearValidate();
-  }, [imgLink]);
+  useEffect(() => {}, [imgLink]);
 
   useEffect(() => {
     setValidateImg(validate);

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Button from "../common/Button";
 import InputFiled from "./InputFiled";
 import TitleField from "./TitleField";
 import UploadImage from "./UploadImage";
@@ -19,7 +20,7 @@ const CreateFastPost = (props: Props) => {
 
   function validdatePost() {
     if (fastPost.imageBase64 === "" && fastPost.imageLink === "")
-      setValidImg("Please choose your image");
+      setValidImg("Please choose your image or enter your video link");
   }
 
   function handleSubmitPost() {

@@ -44,7 +44,7 @@ const LatestPost = (props: Props) => {
               dataLength={_page * 10}
               loader={
                 <div className="absolute top-full left-0 w-full grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
-                  {Array.from(Array(2)).map((v, i) => (
+                  {Array.from(Array(6)).map((v, i) => (
                     <SkeletonPostItem normalView showDetail key={i} />
                   ))}
                 </div>

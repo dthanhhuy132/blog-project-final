@@ -7,6 +7,7 @@ type Props = {
   inputChange: any;
   validate?: string;
   clearValidate: () => void;
+  value?: string;
 };
 
 const InputFiled = ({
@@ -15,6 +16,7 @@ const InputFiled = ({
   inputChange,
   validate = "",
   clearValidate,
+  value = "",
 }: Props) => {
   function handleInputCmt(e: any) {
     clearValidate();
@@ -25,6 +27,7 @@ const InputFiled = ({
   return (
     <>
       <textarea
+        value={value}
         name=""
         id=""
         rows={row}

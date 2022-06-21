@@ -7,10 +7,16 @@ type Props = {
   validate: string;
   clearValidate: () => void;
   setPostCategory: (categoryList: any) => void;
+  postCategory: any;
 };
 
-const Category = ({ validate, clearValidate, setPostCategory }: Props) => {
-  const [categoryArr, setCategoryArr] = useState<string[]>([]);
+const Category = ({
+  validate,
+  clearValidate,
+  setPostCategory,
+  postCategory,
+}: Props) => {
+  const [categoryArr, setCategoryArr] = useState<string[]>(postCategory);
   const category: iCategory[] = useSelector((state: any) => state.Category);
 
   function handleClickInputCheckCaterogy(slug: string) {
@@ -22,7 +28,7 @@ const Category = ({ validate, clearValidate, setPostCategory }: Props) => {
   }
 
   useEffect(() => {
-    if (categoryArr.length > 0) {
+    if (categoryArr) {
       clearValidate();
     }
     setPostCategory(categoryArr);
@@ -41,6 +47,7 @@ const Category = ({ validate, clearValidate, setPostCategory }: Props) => {
                 type="checkbox"
                 name="group"
                 id={item.slug}
+                checked={categoryArr && categoryArr?.indexOf(item.slug) >= 0}
                 className="w-[20px] h-[20px]"
                 onChange={() => handleClickInputCheckCaterogy(item.slug)}
               />

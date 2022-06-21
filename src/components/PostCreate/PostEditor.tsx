@@ -48,8 +48,8 @@ const PostEdittor = ({
       <TitleField>Post content</TitleField>
       <div
         className={`border-[1px] border-gray-200 rounded-xl ${
-          validate && "border-2 border-red-500"
-        }dark:bg-gray-700 dark:border-gray-600`}
+          validate && "border-2 !border-red-500"
+        } dark:bg-gray-700 dark:border-gray-600`}
       >
         <SunEditor
           placeholder="Enter your content here..."
