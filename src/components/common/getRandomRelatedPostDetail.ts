@@ -1,7 +1,7 @@
 
 
 const getRandomRelatedPostDetail = (relatedPost:any) => {
-  if(relatedPost.length <= 5 ) return relatedPost
+  if(relatedPost.length <= 3 ) return relatedPost
 
   let randomNumber = []
   for (let i=0;i<relatedPost.length;++i) randomNumber[i]=i;
@@ -17,7 +17,7 @@ const getRandomRelatedPostDetail = (relatedPost:any) => {
     return array;
   }
 
-  randomNumber = shuffle(randomNumber).slice(0,5);
+  randomNumber = shuffle(randomNumber).slice(0,3);
   const result = randomNumber.map((num:number) => relatedPost[num])
   return result
 }
