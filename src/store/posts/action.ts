@@ -12,6 +12,7 @@ export const GET_MORE_LASTEST_POSTS='GET_MORE_LASTEST_POSTS';
 
 export const GET_POST_DETAIL = 'GET_POST_DETAIL';
 export const GET_RELATED_POST = 'GET_RELATED_POST';
+export const RESET_RELATED_POST = 'RESET_RELATED_POST';
 
 export const ADD_NEW_POST = 'ADD_NEW_POST';
 export const EDIT_POST = 'EDIT_POST'
@@ -102,6 +103,11 @@ export function getDetailPost(postSlug:string):any {
         type: GET_POST_DETAIL,
         payload: response.data[0]
       }) 
+
+      return {
+        ok:true,
+        data:response.data[0]
+      }
     } catch (error) {
       console.log('error', error)
     }
@@ -165,6 +171,26 @@ export function editPost(editPost:any):any {
     }
   }
 }
+
+export function deletePost(id:any):any {
+  return async (dispatch:any) => {
+    try {
+      const res = await postApi.deletePost(id) 
+      dispatch(getLastestPosts())
+      dispatch(getPopularPosts({ love_gte: 1 }))
+      return {
+        ok:true,
+        data: res.data
+      }
+    } catch (error) {
+      return {
+        ok:false
+      }
+    }
+  }
+}
+
+
 
 
 export function resetPostDetail():any {

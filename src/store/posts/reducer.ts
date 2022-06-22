@@ -22,7 +22,7 @@ export interface IPostReducer {
     pagination: Pagination
   },
   postDetail: Post | null;
-  relatedPosts: Post[] | null
+  relatedPosts: Post[]
 }
 
 const initState:IPostReducer = {
@@ -57,7 +57,7 @@ const initState:IPostReducer = {
     }
   },
   postDetail: null,
-  relatedPosts:null
+  relatedPosts:[]
 }
 
 export default function postReducer(state = initState, action: any) {
@@ -138,15 +138,23 @@ export default function postReducer(state = initState, action: any) {
 
 
         case GET_RELATED_POST:
+
+          let combineData = [...state.relatedPosts, ...action.payload.data]
+          
+          let newPostData = combineData.filter((value:Post, index:number, self:Post[]) => {
+            return self.findIndex((item:Post) => item.id === value.id) === index;
+          })
+        
           return {
             ...state,
-            relatedPosts: action.payload
+            relatedPosts: combineData
           }
 
         case RESET_POST_DETAIL:
           return {
             ...state,
-            postDetail: null
+            postDetail: null,
+            relatedPosts:[]
           }
 
 

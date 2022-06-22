@@ -1,6 +1,5 @@
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-import Stories from "react-insta-stories";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Link,
@@ -26,7 +25,6 @@ const FastPostPage = (props: Props) => {
 
   const [isLoadingPost, setIsLoadingPost] = useState(false);
   const username = param.username;
-  console.log("username", username);
 
   const fastPost = useSelector((state: any) => {
     if (username) {

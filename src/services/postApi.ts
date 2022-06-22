@@ -55,8 +55,8 @@ const postApi = {
     return api.patch(`/posts/${editPost.id}`, editPost )
   },
 
-  deletePost(editPost:any) {
-    return api.delete(`/posts/${editPost.id}` )
+  deletePost(id:any) {
+    return api.delete(`/posts/${id}` )
   },
 
   createPost(newPost:any) {

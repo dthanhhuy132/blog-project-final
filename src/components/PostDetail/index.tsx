@@ -11,8 +11,7 @@ import {
 import SectionTitle from "../common/SectionTitle";
 import { iCategory, Post } from "../interface";
 import PostItem from "../PostItem";
-import PostItemAuthorAndTime from "../PostItem/PostItemAuthorAndTime";
-import CommentAvatar from "./CommentAvatar";
+
 import CommentForm from "./CommentForm";
 import CommentItem from "./CommentItem";
 
@@ -21,6 +20,7 @@ import PostDeatilAction from "./PostDetailAction";
 import PostDetailTitle from "./PostDetailTitle";
 import SkeletonPostDetail from "../Skeleton/SketetonPostDetail";
 import getCategoryName from "../common/getCategoryName";
+import getRandomRelatedPostDetail from "../common/getRandomRelatedPostDetail";
 
 type Props = {};
 
@@ -34,17 +34,22 @@ const PostDetail = (props: Props) => {
   const allUser = useSelector((state: any) => state.User.allUser);
   const allCategory: iCategory[] = useSelector((state: any) => state.Category);
   const { postDetail, relatedPosts } = useSelector((state: any) => state.Posts);
+  const _5RelatedPosts = getRandomRelatedPostDetail(relatedPosts);
 
-  let { postCategorylist, randomCate } = getCategoryName(
-    postDetail?.category,
-    allCategory
-  );
+  let { postCategorylist } = getCategoryName(postDetail?.category, allCategory);
+
   useEffect(() => {
-    dispatch(getDetailPost(slug));
-    if (randomCate) {
-      dispatch(getRelatedPost({ _q: randomCate }));
-    }
+    dispatch(resetPostDetail());
+    dispatch(getDetailPost(slug)).then((res: any) => {
+      if (res.ok) {
+        const category = res.data.category;
+        category.forEach((item: string) =>
+          dispatch(getRelatedPost({ _q: item }))
+        );
+      }
+    });
   }, [slug]);
+
   useEffect(() => {
     FormatPostDetail();
   }, [postDetail]);
@@ -92,11 +97,11 @@ const PostDetail = (props: Props) => {
                   ))}
                 </div>
               </div>
-              {relatedPosts && (
+              {relatedPosts.length > 0 && (
                 <div>
                   <SectionTitle top={5}>Related Posts</SectionTitle>
                   <div className="flex flex-col gap-4">
-                    {relatedPosts?.data.map((item: Post, index: number) => (
+                    {_5RelatedPosts.map((item: Post, index: number) => (
                       <PostItem titleSmaller data={item} />
                     ))}
                   </div>

@@ -1,11 +1,14 @@
 import React from "react";
 import { JsxElement } from "typescript";
+import Button from "./Button";
+import LoadingIcon from "./LoadingIcon";
 
 type Props = {
   children?: JsxElement;
   okFunc?: () => void;
   cancelFunc?: () => void;
   title?: string;
+  isLoading?: boolean;
 };
 
 const Modal = ({
@@ -13,6 +16,7 @@ const Modal = ({
   okFunc = () => {},
   cancelFunc = () => {},
   title = "hong co title ha",
+  isLoading = true,
 }: Props) => {
   return (
     <>
@@ -23,11 +27,14 @@ const Modal = ({
         </div>
         <div className="flex gap-2 dark:text-gray-200 text-[1.1rem] text-white">
           <button
-            className="px-2 py-1 w-[100px] border-[1px] rounded-md bg-red-600 hover:bg-red-700"
+            className={`px-2 py-1 w-[100px] border-[1px] rounded-md bg-red-600 hover:bg-red-700 ${
+              isLoading && "pointer-events-none bg-red-400"
+            }`}
             onClick={okFunc}
           >
-            Ok
+            {isLoading ? <LoadingIcon /> : "Ok"}
           </button>
+
           <button
             className="px-2 py-1 w-[100px] border-[1px] rounded-md bg-blue-600 hover:bg-blue-700"
             onClick={cancelFunc}

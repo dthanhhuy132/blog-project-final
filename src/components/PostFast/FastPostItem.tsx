@@ -26,6 +26,7 @@ const FastPostItem = ({
   linkToUserFastPost = "",
 }: Props) => {
   const navigate = useNavigate();
+  const location = useLocation();
   const users = useSelector((state: any) => state.User.allUser);
   const sizeClass = classNames({
     "md:w-[170px] md:h-[220px] ": !smallSize,
@@ -44,11 +45,13 @@ const FastPostItem = ({
     navigate(`/${userInfo.username}`);
   }
 
+  const isFastPostPage = location.pathname.indexOf("fastpost") > 0;
+
   return (
     <div
       className={`relative w-[130px] h-[200px] transition-all duration-200 select-none
       ${sizeClass} rounded-xl inline-block cursor-pointer mr-2 
-      ${active && "!w-[60vh] !h-[80vh] !mx-10"}
+      ${active && "!w-[70vh] !h-[90vh] !mx-10"}
       ${!noPadding && "last:mr-0"}
       ${noPadding && "mr-0"}
       ${`get-post-${active ? "active" : ""}`}
@@ -81,9 +84,12 @@ const FastPostItem = ({
             <img
               src={fastPost?.imageBase64 || fastPost?.imageLink}
               alt="bg"
-              className={`w-full h-full object-cover dark:brightness-80 brightness-95 ${
-                !active && "hover:scale-110"
-              } transition-all duration-300`}
+              className={`w-full h-full 
+              ${active ? "object-contain !rounded-xl" : "object-cover"} 
+              dark:brightness-80 brightness-95 
+              ${!active && "hover:scale-110"} 
+              ${isFastPostPage && !active && "brightness-[30%]"}
+              transition-all duration-300`}
             />
           </div>
 

@@ -38,10 +38,11 @@ const UserProfile = (props: Props) => {
         if (res.ok) {
           setIsUserInfo(res.data);
           if (res.data.id) {
-            dispatch(getUserLatestPost({ userId: res.data.id }));
+            dispatch(getUserLatestPost({ userId: res.data.id })).then(
+              (res: any) => setIsLoading(false)
+            );
             dispatch(getUserPopularPost({ userId: res.data.id, love_gte: 1 }));
             dispatch(getUserFastPost({ userId: res.data.id }));
-            setIsLoading(false);
           }
         }
       });
@@ -50,10 +51,7 @@ const UserProfile = (props: Props) => {
 
   return (
     <div className="px-2 lg:px-0">
-      {isLoading ||
-      lastestPosts.data.length === 0 ||
-      popularPosts.data.length === 0 ||
-      fastPosts.data.length === 0 ? (
+      {isLoading ? (
         <SkeletonUserPage />
       ) : (
         <>

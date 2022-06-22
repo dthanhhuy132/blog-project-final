@@ -24,10 +24,10 @@ export default function postSlider(
     } else {
       if (postElLeft <= windowWidth - postElRight) {
         fastPostSliderEl.scrollLeft =
-          postElOffsetLeft - centerScreen + postElWidth + 60;
+          postElOffsetLeft - centerScreen + postElWidth + 70;
       } else {
         fastPostSliderEl.scrollLeft =
-          postElOffsetLeft - centerScreen - postElWidth - 50;
+          postElOffsetLeft - centerScreen - postElWidth - 70;
       }
     }
   }
